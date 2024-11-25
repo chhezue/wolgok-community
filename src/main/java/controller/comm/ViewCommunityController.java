@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.Controller;
 import model.domain.Community;
+import model.service.MemberManager;
 import model.service.UserManager;
 
 public class ViewCommunityController implements Controller {
