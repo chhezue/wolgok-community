@@ -3,6 +3,7 @@ package model.domain;
 import java.util.Date;
 
 public class News {
+    private int newsId;
     private String title;
     private String contents;
     private String press;
@@ -12,7 +13,14 @@ public class News {
     private int heartCount;
     private String category;
 
-    // Getter and Setter methods
+    public int getNewsId() {
+        return newsId;
+    }
+
+    public void setNewsId(int newsId) {
+        this.newsId = newsId;
+    }
+
     public String getTitle() {
         return title;
     }

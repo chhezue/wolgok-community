@@ -15,19 +15,19 @@ public class Member {
     private List<Club> joinedClubs;
 
     // Getter and Setter methods
-    public int getmemberId() {
+    public int getMemberId() {
         return memberId;
     }
 
-    public void setmemberId(int memberId) {
+    public void setMemberId(int memberId) {
         this.memberId = memberId;
     }
 
-    public String getmemberName() {
+    public String getMemberName() {
         return memberName;
     }
 
-    public void setmemberName(String memberName) {
+    public void setMemberName(String memberName) {
         this.memberName = memberName;
     }
 

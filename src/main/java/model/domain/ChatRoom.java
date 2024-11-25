@@ -1,19 +1,28 @@
 package model.domain;
 
 public class ChatRoom {
-    private Club clubName;
+    private int chatRoomId;
     private String lastMessage;
     private String myProfileImage;
     private String otherProfileImage;
     private int unreadCount;
+    private Club club; // Club 객체
 
-    // Getter and Setter methods
-    public Club getClubName() {
-        return clubName;
+    // Getter 및 Setter 메소드
+    public int getChatRoomId() {
+        return chatRoomId;
     }
 
-    public void setClubName(Club clubName) {
-        this.clubName = clubName;
+    public void setChatRoomId(int chatRoomId) {
+        this.chatRoomId = chatRoomId;
+    }
+
+    public Club getClub() {
+        return club;
+    }
+
+    public void setClub(Club club) {
+        this.club = club;
     }
 
     public String getLastMessage() {
@@ -48,9 +57,14 @@ public class ChatRoom {
         this.unreadCount = unreadCount;
     }
 
+    // Club ID를 반환하는 메소드 추가
+    public int getClubId() {
+        return club != null ? club.getClubId() : -1; // Club이 null이 아닐 경우 clubId 반환, null일 경우 -1 반환
+    }
+
     public int countUnreadMessage(int count) {
         // Implement logic to count unread messages
-        return unreadCount;
+        return unreadCount; // 필요에 따라 수정
     }
 
     public void displayChat() {
