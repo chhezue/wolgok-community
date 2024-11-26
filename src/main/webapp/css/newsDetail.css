@@ -1,0 +1,68 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* 세로 중앙 정렬 */
+    height: 100%; /* 메인 영역의 높이를 100%로 설정 */
+}
+
+.news-article {
+    background-color: white;
+    border-radius: 8px;
+    padding: 50px;
+    width: 100%; /* 전체 너비 사용 */
+}
+
+h2 {
+    margin: 0 0 10px;
+}
+
+.news-header {
+    background-color: lightgray;
+    padding: 10px;
+}
+
+.news-info {
+    margin: 0 0 10px;
+    color: #666;
+}
+
+.news-content {
+    margin-bottom: 20px;
+}
+
+.news-image {
+    width: 100%;
+    height: 200px; /* 이미지 높이 설정 */
+    background-color: #e0e0e0; /* 임시 배경색 */
+    border-radius: 4px;
+    margin: 10px 0; /* 본문과 이미지 사이의 간격 */
+}
+
+.news-interaction {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 수평 중앙 정렬 */
+    margin-top: 30px;
+}
+
+.likes {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.share {
+    cursor: pointer;
+}
+
+.gray-boxes {
+    display: flex; /* 두 개의 박스를 가로로 배치 */
+    justify-content: space-between; /* 박스 사이의 간격 조정 */
+    margin-top: 20px; /* 상단 여백 추가 */
+}
+
+.gray-box {
+    width: 48%; /* 두 개의 박스가 가로로 나란히 배열되도록 설정 */
+    height: 200px; /* 박스 높이 설정 */
+    background-color: #e0e0e0; /* 회색 배경색 */
+    border-radius: 4px; /* 둥근 모서리 */
+}
