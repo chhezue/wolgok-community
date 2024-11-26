@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>월곡 커뮤니티</title>
+    <link rel="stylesheet" href="clubMemberInfo.css">
+    <style>
+      @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+    </style>
+</head>
+<body>
+    <!-- 상단 네비게이션 -->
+    <header>
+        <!-- <div class="nav-container"> -->
+            <div class="logo">월곡 커뮤니티</div>
+            <div class="nav-right">
+              <div class="search-bar">
+                <img src="images\menu.png" alt="menu">
+                <input type="text" placeholder="모임 이름, 뉴스 제목, 해시태그 검색">
+                <img src="images\search.png" alt="search">
+              </div>
+              <div class="nav-links">
+                <a href="#">나의 모임</a> 
+                <a href="#">마이페이지</a>
+                <div class="auth-box">
+                  <div class="sign-in-box">
+                    <span class="sign-in-text">Sign in</span>
+                  </div>
+                  <div class="register-box">
+                    <span class="register-text">Register</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <!-- </div> -->
+    </header>
+
+    <main class="main-container">
+      <div class="profile">
+        <div class="profile-image">
+          <img src="images\empty.jpg" alt="프로필 이미지" />
+        </div>
+        <div class="member-info">
+          <h1>회원 닉네임</h1>
+          <textarea class="profile-intro" placeholder="소개글"></textarea>
+        </div>
+      </div>
+
+      <div class="joined-club">
+        <p id="club-title">해당 회원이 참여 중인 모임</p>
+        <div class="club-section">
+          <div class="club-item">
+              <div class="club-thumbnail"></div> <!--이미지 파일 삽입-->
+              <div class="club-info">
+                <h3>모임명</h3>
+                <p>모임 설명</p>
+                <p>멤버 수: 10</p>
+              </div>
+              <div class="chat-icons">
+                <img src="images\chat_bubble.png" alt="chat-icon">
+              </div>
+          </div>
+          <div class="club-item">
+            <div class="club-thumbnail"></div> <!--이미지 파일 삽입-->
+            <div class="club-info">
+              <h3>모임명</h3>
+              <p>모임 설명</p>
+              <p>멤버 수: 10</p>
+            </div>
+            <div class="chat-icons">
+              <img src="images\chat_bubble.png" alt="chat-icon">
+            </div>
+          </div>
+          <div class="club-item">
+            <div class="club-thumbnail"></div> <!--이미지 파일 삽입-->
+            <div class="club-info">
+              <h3>모임명</h3>
+              <p>모임 설명</p>
+              <p>멤버 수: 10</p>
+            </div>
+            <div class="chat-icons">
+              <img src="images\chat_bubble.png" alt="chat-icon">
+            </div>
+          </div>
+          <div class="club-item">
+            <div class="club-thumbnail"></div> <!--이미지 파일 삽입-->
+            <div class="club-info">
+              <h3>모임명</h3>
+              <p>모임 설명</p>
+              <p>멤버 수: 10</p>
+            </div>
+            <div class="chat-icons">
+              <img src="images\chat_bubble.png" alt="chat-icon">
+            </div>
+          </div>
+          <!-- 모임 아이템 복사하여 추가 -->
+        </div>
+      </div>
+    </main>
+
+    <!-- 하단 푸터 -->
+    <footer>
+      <div class="footer-container">
+      <div class="social-icons">
+          <img src="images\X-logo.png" alt="X">
+          <img src="images\insta-logo.png" alt="Instagram">
+          <img src="images\youtube-logo.png" alt="youtube">
+          <img src="images\in-logo.png" alt="in">
+      </div>
+      <div class="footer-links">
+          <a href="#" style="font-weight: bold;">Help</a>
+          <a href="#">문의하기</a>
+          <a href="#">이용약관</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
