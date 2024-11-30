@@ -21,7 +21,7 @@ public class UserManager {
 	private CommunityDAO commDAO;
 	private UserAnalysis userAanlysis;
 
-	UserManager() {
+	private UserManager() {
 		try {
 			userDAO = new UserDAO();
 			commDAO = new CommunityDAO();
