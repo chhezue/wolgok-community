@@ -1,4 +1,4 @@
-package controller.member;
+package controller.user;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,11 +22,11 @@ public class ViewUserController implements Controller {
     	User user = null;
 		try {
 			user = manager.findUser(userId);	// 사용자 정보 검색
-		} catch (UserNotFoundException e) {
+		} catch (UserNotFoundException e) {				
 	        return "redirect:/user/list";
 		}	
 		
-		request.setAttribute("user", user);		// 사용자 정보 저장
+		request.setAttribute("user", user);		// 사용자 정보 저장				
 		return "/user/view.jsp";				// 사용자 보기 화면으로 이동
     }
 }

@@ -1,4 +1,4 @@
-package controller.member;
+package controller.user;
 
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -30,11 +30,11 @@ public class ListUserController implements Controller {
 		// List<User> userList = manager.findUserList(currentPage, countPerPage);
 
 		// userList 객체와 현재 로그인한 사용자 ID를 request에 저장하여 전달
-		request.setAttribute("userList", userList);
-		request.setAttribute("curUserId",
-				UserSessionUtils.getLoginUserId(request.getSession()));
+		request.setAttribute("userList", userList);				
+		request.setAttribute("curUserId", 
+				UserSessionUtils.getLoginUserId(request.getSession()));		
 
 		// 사용자 리스트 화면으로 이동(forwarding)
-		return "/user/list.jsp";
+		return "/user/list.jsp";        
     }
 }

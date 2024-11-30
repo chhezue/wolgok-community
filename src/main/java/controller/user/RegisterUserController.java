@@ -1,4 +1,4 @@
-package controller.member;
+package controller.user;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class RegisterUserController implements Controller {
     		List<Community> commList = manager.findCommunityList();	// 커뮤니티 리스트 검색
 			request.setAttribute("commList", commList);	
 		
-			return "/user/registerForm.jsp";   // 검색한 커뮤니티 리스트를 registerForm으로 전송
+			return "/user/registerForm.jsp";   // 검색한 커뮤니티 리스트를 registerForm으로 전송     	
 	    }	
 
     	// POST request (회원정보가 parameter로 전송됨)
