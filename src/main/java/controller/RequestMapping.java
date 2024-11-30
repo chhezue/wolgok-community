@@ -2,14 +2,10 @@ package controller;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import controller.member.DeleteMemberController;
-import controller.member.FindInfoController;
-import controller.member.RegisterMemberController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import controller.user.*;
+import controller.member.*;
 import controller.comm.*;
 
 public class RequestMapping {
