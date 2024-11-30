@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import controller.member.*;
-import controller.user.*;
 import controller.comm.*;
 
 public class RequestMapping {
@@ -33,8 +32,9 @@ public class RequestMapping {
 //      mappings.put("/user/update/form", new UpdateUserFormController());
 //      mappings.put("/user/update", new UpdateUserController());
         mappings.put("/user/update", new UpdateUserController());
+        
         mappings.put("/user/delete", new DeleteUserController());
-
+        
         // 커뮤니티 관련 request URI 추가
         mappings.put("/community/list", new ListCommunityController());
         mappings.put("/community/view", new ViewCommunityController());
@@ -42,7 +42,6 @@ public class RequestMapping {
         mappings.put("/community/create", new CreateCommunityController());
         mappings.put("/community/update", new UpdateCommunityController());
 
-        // -------------------- 구현 시작 --------------------
         //김세령 매핑 추가
         mappings.put("/member/register", new RegisterMemberController()); // 사용자 등록
         mappings.put("/member/findInfo", new FindInfoController());       // 아이디 및 비밀번호 찾기
