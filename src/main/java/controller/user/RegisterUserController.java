@@ -1,4 +1,4 @@
-package controller.member;
+package controller.user;
 
 import java.util.List;
 

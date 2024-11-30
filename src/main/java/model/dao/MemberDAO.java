@@ -52,7 +52,7 @@ public class MemberDAO {
     }
 
     // memberId로 사용자 검색
-    public Member findUser(int memberId) {
+    public Member findMember(int memberId) {
         String selectQuery = "SELECT * FROM Member WHERE memberId = ?";
         Member member = null;
 
@@ -84,7 +84,7 @@ public class MemberDAO {
     }
 
     // 사용자 리스트 조회
-    public List<Member> findUserList() {
+    public List<Member> findMemberList() {
         String selectQuery = "SELECT * FROM Member";
         List<Member> members = new ArrayList<>();
 
@@ -135,5 +135,71 @@ public class MemberDAO {
         }
 
         return result;
+    }
+    
+    // 사용자 정보 업데이트
+    public boolean update(Member member) {
+        String updateQuery = "UPDATE Member SET memberName = ?, email = ? WHERE memberId = ?";
+        
+        jdbcUtil.setSql(updateQuery);
+        jdbcUtil.setParameters(new Object[]{member.getMemberName(), member.getEmail(), member.getMemberId()});
+        
+        try {
+            int rowsAffected = jdbcUtil.executeUpdate();
+            
+            if (rowsAffected > 0) {
+                System.out.println(member.getMemberId() + " 사용자 정보가 수정되었습니다.");
+                return true;
+            } else {
+                System.out.println("수정할 사용자 정보가 없습니다.");
+                return false; 
+            }
+        } catch (Exception e) {
+            System.out.println("사용자 삭제 오류 발생");
+            e.printStackTrace();
+        } finally {
+            jdbcUtil.commit();
+            jdbcUtil.close();
+        }
+        
+        return true;
+    }
+    
+    // 닉네임 중복 여부 확인
+    public boolean isNickNameExists(String nickName) {
+        String query = "SELECT COUNT(*) FROM Member WHERE nickName = ?";
+        jdbcUtil.setSql(query);
+        jdbcUtil.setParameters(new Object[]{nickName});
+
+        try {
+            ResultSet rs = jdbcUtil.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // 중복된 닉네임이 있으면 true
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            jdbcUtil.close();
+        }
+        return false;
+    }
+
+    // 이메일 중복 여부 확인
+    public boolean isEmailExists(String email) {
+        String query = "SELECT COUNT(*) FROM Member WHERE email = ?";
+        jdbcUtil.setSql(query);
+        jdbcUtil.setParameters(new Object[]{email});
+
+        try {
+            ResultSet rs = jdbcUtil.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // 중복된 이메일이 있으면 true
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            jdbcUtil.close();
+        }
+        return false;
     }
 }
