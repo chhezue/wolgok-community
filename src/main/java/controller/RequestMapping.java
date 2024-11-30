@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import controller.member.*;
+import controller.user.*;
 import controller.comm.*;
 
 public class RequestMapping {
@@ -42,7 +43,7 @@ public class RequestMapping {
         mappings.put("/community/create", new CreateCommunityController());
         mappings.put("/community/update", new UpdateCommunityController());
 
-        //김세령 매핑 추가
+        // 김세령 매핑 구현
         mappings.put("/member/register", new RegisterMemberController()); // 사용자 등록
         mappings.put("/member/findInfo", new FindInfoController());       // 아이디 및 비밀번호 찾기
         mappings.put("/member/delete", new DeleteMemberController());   //사용자 계정 삭제
