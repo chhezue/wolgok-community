@@ -1,23 +1,23 @@
-CREATE TABLE ChatRoom
+CREATE TABLE Chatroom
 (
-    ChatRoomId           INTEGER  NOT NULL ,
+    ChatroomId           INTEGER  NOT NULL ,
     myProfileImage       VARCHAR(18)  NULL ,
     otherProfileImage    VARCHAR(18)  NULL ,
     unreadCount          INTEGER  NULL ,
     clubId               INTEGER  NULL,
-    PRIMARY KEY (ChatRoomId)
+    PRIMARY KEY (ChatroomId)
 );
 
---CREATE UNIQUE INDEX XPKChatRoom ON ChatRoom
---(ChatRoomId   ASC,memberId   ASC);
+--CREATE UNIQUE INDEX XPKChatroom ON Chatroom
+--(ChatroomId   ASC,userId   ASC);
 
---ALTER TABLE ChatRoom
---   ADD CONSTRAINT  XPKChatRoom PRIMARY KEY (ChatRoomId,memberId);
+--ALTER TABLE Chatroom
+--   ADD CONSTRAINT  XPKChatroom PRIMARY KEY (ChatroomId,userId);
 
 CREATE TABLE Member
 (
-   memberId               INTEGER  NOT NULL ,
-   memberName             VARCHAR(18)  NULL ,
+   userId               INTEGER  NOT NULL ,
+   userName             VARCHAR(18)  NULL ,
    password             VARCHAR(18)  NULL ,
    nickname             VARCHAR(18)  NULL ,
    email                VARCHAR(18)  NULL ,
@@ -27,10 +27,10 @@ CREATE TABLE Member
 );
 
 CREATE UNIQUE INDEX XPKMember ON Member
-    (memberId   ASC);
+    (userId   ASC);
 
 ALTER TABLE Member
-    ADD CONSTRAINT  XPKMember PRIMARY KEY (memberId);
+    ADD CONSTRAINT  XPKMember PRIMARY KEY (userId);
 
 CREATE TABLE Message
 (
@@ -38,7 +38,7 @@ CREATE TABLE Message
     messageTime            DATE  NULL ,
     viewCount            INTEGER  NULL ,
     content              VARCHAR(255)  NULL ,
-    ChatRoomId           INTEGER  NOT NULL ,
+    ChatroomId           INTEGER  NOT NULL ,
     senderId              INTEGER  NOT NULL
 );
 
@@ -62,18 +62,18 @@ ALTER TABLE Club
 
 CREATE TABLE Join
 (
-    memberId               INTEGER NOT NULL,
+    userId               INTEGER NOT NULL,
     clubId               INTEGER NOT NULL,
     role                 VARCHAR2(50) NULL
 );
 
-CREATE UNIQUE INDEX XPKJoin ON Join (memberId ASC, clubId ASC);
+CREATE UNIQUE INDEX XPKJoin ON Join (userId ASC, clubId ASC);
 
 ALTER TABLE Join
-    ADD CONSTRAINT XPKJoin PRIMARY KEY (memberId, clubId);
+    ADD CONSTRAINT XPKJoin PRIMARY KEY (userId, clubId);
 
 ALTER TABLE Join
-    ADD CONSTRAINT R_Join_Member FOREIGN KEY (memberId) REFERENCES Member (memberId);
+    ADD CONSTRAINT R_Join_Member FOREIGN KEY (userId) REFERENCES Member (userId);
 
 ALTER TABLE Join
     ADD CONSTRAINT R_Join_Club FOREIGN KEY (clubId) REFERENCES Club (clubId);
@@ -94,36 +94,37 @@ CREATE TABLE News
 
 CREATE UNIQUE INDEX XPKNews ON News (NewsId ASC);
 
-CREATE SEQUENCE ChatRoomId_Seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE ChatroomId_Seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE MessageId_Seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE ClubId_Seq START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE NewsId_Seq START WITH 1 INCREMENT BY 1;
 
-ALTER TABLE ChatRoom
+ALTER TABLE Chatroom
     ADD CONSTRAINT R_11 FOREIGN KEY (clubId) REFERENCES Club (clubId) ON DELETE SET NULL;
 
 ALTER TABLE Message
-    ADD CONSTRAINT R_7 FOREIGN KEY (ChatRoomId) REFERENCES ChatRoom (ChatRoomId);
+    ADD CONSTRAINT R_7 FOREIGN KEY (ChatroomId) REFERENCES Chatroom (ChatroomId);
 
 
-INSERT INTO ChatRoom (ChatRoomId, myProfileImage, otherProfileImage, unreadCount, clubId) VALUES
+// 가짜 데이터 생성
+INSERT INTO Chatroom (ChatroomId, myProfileImage, otherProfileImage, unreadCount, clubId) VALUES
 (1, 'image1.jpg', 'image2.jpg', 2, 1),
 (2, 'image3.jpg', 'image4.jpg', 0, 2),
 (3, 'image5.jpg', 'image6.jpg', 5, NULL),
 (4, 'image7.jpg', 'image8.jpg', 1, 1),
 (5, 'image9.jpg', 'image10.jpg', 3, 3);
 
-INSERT INTO Member (memberId, memberName, password, nickname, email, profileImage, registrationDate, interests) VALUES
-(1, 'member1', 'pass1', 'nickname1', 'member1@example.com', 'profile1.jpg', '2023-01-01', 'sports'),
-(2, 'member2', 'pass2', 'nickname2', 'member2@example.com', 'profile2.jpg', '2023-02-01', 'music'),
-(3, 'member3', 'pass3', 'nickname3', 'member3@example.com', 'profile3.jpg', '2023-03-01', 'art'),
-(4, 'member4', 'pass4', 'nickname4', 'member4@example.com', 'profile4.jpg', '2023-04-01', 'technology'),
-(5, 'member5', 'pass5', 'nickname5', 'member5@example.com', 'profile5.jpg', '2023-05-01', 'travel');
+INSERT INTO Member (userId, userName, password, nickname, email, profileImage, registrationDate, interests) VALUES
+(1, 'user1', 'pass1', 'nickname1', 'user1@example.com', 'profile1.jpg', '2023-01-01', 'sports'),
+(2, 'user2', 'pass2', 'nickname2', 'user2@example.com', 'profile2.jpg', '2023-02-01', 'music'),
+(3, 'user3', 'pass3', 'nickname3', 'user3@example.com', 'profile3.jpg', '2023-03-01', 'art'),
+(4, 'user4', 'pass4', 'nickname4', 'user4@example.com', 'profile4.jpg', '2023-04-01', 'technology'),
+(5, 'user5', 'pass5', 'nickname5', 'user5@example.com', 'profile5.jpg', '2023-05-01', 'travel');
 
-INSERT INTO Message (messageId, messageTime, viewCount, content, ChatRoomId, senderId) VALUES
+INSERT INTO Message (messageId, messageTime, viewCount, content, ChatroomId, senderId) VALUES
 (1, '2023-11-01', 10, 'Hello everyone!', 1, 1),
 (2, '2023-11-02', 5, 'How are you?', 1, 2),
-(3, '2023-11-03', 20, 'Lets meet up!', 2, 3),
+(3, '2023-11-03', 20, 'Let\'s meet up!', 2, 3),
 (4, '2023-11-04', 15, 'Check this out!', 3, 4),
 (5, '2023-11-05', 30, 'Great idea!', 4, 5);
 
@@ -134,7 +135,7 @@ INSERT INTO Club (clubId, clubName, memberCount, memberList, hashtags, descripti
 (4, 'Tech Club', 12, '3,4', '#technology,#innovation', 'For tech geeks', 'thumbnail4.jpg', 30),
 (5, 'Travel Club', 6, '1,5', '#travel,#adventure', 'Travel enthusiasts unite', 'thumbnail5.jpg', 10);
 
-INSERT INTO Join (memberId, clubId, role) VALUES
+INSERT INTO Join (userId, clubId, role) VALUES
 (1, 1, 'member'),
 (2, 1, 'admin'),
 (3, 2, 'member'),
