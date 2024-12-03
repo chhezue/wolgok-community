@@ -21,7 +21,7 @@ public class ClubDAO {
                 Club club = new Club();
                 club.setClubId(rs.getInt("clubId"));
                 club.setClubName(rs.getString("clubName"));
-                // memberCount는 setMembers를 통해 설정될 것임
+                club.setMemberCount(rs.getInt("memberCount"));
                 club.setDescription(rs.getString("description"));
                 club.setThumbnail(rs.getString("thumbnail"));
                 club.setMaxMembers(rs.getInt("maxMembers"));
@@ -35,8 +35,7 @@ public class ClubDAO {
                 }
 
                 // 클럽 ID로 멤버 리스트 가져오기
-                List<Member> members = getMembersByClubId(club.getClubId());
-                club.setMembers(members); // setMembers 사용하여 memberCount 자동 업데이트
+                club.setMembers(getMembersByClubId(club.getClubId()));
 
                 list.add(club);
             }
@@ -61,7 +60,7 @@ public class ClubDAO {
                 Club club = new Club();
                 club.setClubId(rs.getInt("clubId"));
                 club.setClubName(rs.getString("clubName"));
-                // memberCount는 setMembers를 통해 설정될 것임
+                club.setMemberCount(rs.getInt("memberCount"));
                 club.setDescription(rs.getString("description"));
                 club.setThumbnail(rs.getString("thumbnail"));
                 club.setMaxMembers(rs.getInt("maxMembers"));
@@ -75,8 +74,7 @@ public class ClubDAO {
                 }
 
                 // 클럽 ID로 멤버 리스트 가져오기
-                List<Member> members = getMembersByClubId(clubId);
-                club.setMembers(members); // setMembers 사용하여 memberCount 자동 업데이트
+                club.setMembers(getMembersByClubId(clubId));
 
                 return club;
             }
@@ -94,7 +92,7 @@ public class ClubDAO {
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcUtil.setSql(insertQuery);
         Object[] param = new Object[]{
-                club.getClubId(), club.getClubName(), club.getMemberCount(), // memberCount는 필요 없음
+                club.getClubId(), club.getClubName(), club.getMemberCount(),
                 club.getDescription(), club.getThumbnail(), club.getMaxMembers(),
                 club.getCategory(),
                 club.getHashtags() != null ? String.join(",", club.getHashtags()) : null, // 해시태그 저장
@@ -116,10 +114,10 @@ public class ClubDAO {
 
     // 클럽 정보를 수정하는 메소드
     public int updateClub(Club club) {
-        String updateQuery = "UPDATE Club SET clubName = ?, description = ?, thumbnail = ?, maxMembers = ?, category = ?, hashtags = ?, createdAt = ? WHERE clubId = ?";
+        String updateQuery = "UPDATE Club SET clubName = ?, memberCount = ?, description = ?, thumbnail = ?, maxMembers = ?, category = ?, hashtags = ?, createdAt = ? WHERE clubId = ?";
         jdbcUtil.setSql(updateQuery);
         Object[] param = new Object[]{
-                club.getClubName(),
+                club.getClubName(), club.getMemberCount(),
                 club.getDescription(), club.getThumbnail(),
                 club.getMaxMembers(), club.getCategory(),
                 club.getHashtags() != null ? String.join(",", club.getHashtags()) : null,
@@ -169,9 +167,9 @@ public class ClubDAO {
             ResultSet rs = jdbcUtil.executeQuery();
             while (rs.next()) {
                 Member member = new Member();
-                
-                // member domain 수정 완료되면 필드 설정 부분 구현
-                
+                member.setId(rs.getInt("id")); // 예시
+                member.setName(rs.getString("name")); // 예시
+                // 추가 필드 설정...
                 members.add(member);
             }
         } catch (SQLException e) {
