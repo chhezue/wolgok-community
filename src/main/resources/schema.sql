@@ -1,80 +1,107 @@
--- Member 테이블 생성
 CREATE TABLE Member
 (
-    userId               INTEGER  NOT NULL,
-    userName             VARCHAR(18)  NULL,
-    password             VARCHAR(18)  NULL,
-    nickname             VARCHAR(18)  NULL,
-    email                VARCHAR(18)  NULL,
-    profileImage         VARCHAR(18)  NULL,
-    registrationDate     DATE  NULL,
-    PRIMARY KEY (userId)
+   memberId               INTEGER  NOT NULL ,
+   memberName             VARCHAR(18)  NULL ,
+   password             VARCHAR(18)  NULL ,
+   nickname             VARCHAR(18)  NULL ,
+   email                VARCHAR(18)  NULL ,
+   profileImage         VARCHAR(18)  NULL ,
+   registrationDate     DATE  NULL ,
+   interests            VARCHAR(255)  NULL
 );
 
-CREATE UNIQUE INDEX XPKMember ON Member (userId ASC);
+CREATE UNIQUE INDEX XPKMember ON Member
+    (memberId   ASC);
 
--- Club 테이블 생성
+ALTER TABLE Member
+    ADD CONSTRAINT  XPKMember PRIMARY KEY (memberId);
+
 CREATE TABLE Club
 (
-    clubId               INTEGER  NOT NULL,
-    clubName             VARCHAR(18)  NULL,
-    memberCount          INTEGER  NULL,
-    description          VARCHAR(255)  NULL,
-    thumbnail            VARCHAR(255)  NULL,
-    maxMembers           INTEGER  NULL,
-    createdAt            DATE  NULL,  -- 개설일 추가
-    category             VARCHAR(50)  NULL,  -- 카테고리 추가
-    hashtags             VARCHAR(255)  NULL,
-    PRIMARY KEY (clubId)
+    clubId               INTEGER  NOT NULL ,
+    clubName             VARCHAR(18)  NULL ,
+    memberCount          INTEGER  NULL ,
+    memberList          VARCHAR(255)  NULL ,
+    hashtags            VARCHAR(255)  NULL ,
+    description          VARCHAR(18)  NULL ,
+    thumbnail            VARCHAR(18)  NULL ,
+    maxMembers           INTEGER  NULL
 );
 
-CREATE UNIQUE INDEX XPKClub ON Club (clubId ASC);
+CREATE SEQUENCE ClubId_Seq START WITH 1 INCREMENT BY 1;
 
-CREATE UNIQUE INDEX XPKClub ON Club (clubId ASC);
+CREATE UNIQUE INDEX XPKClub ON Club
+    (clubId   ASC);
 
--- Meeting 테이블 생성
-CREATE TABLE Meeting
-(
-    meetingId           INTEGER NOT NULL,
-    clubId              INTEGER NOT NULL,
-    meetingDate         TIMESTAMP NOT NULL,
-    meetingTitle        VARCHAR(100) NOT NULL,
-    meetingDescription   VARCHAR(255) NULL,
-    location            VARCHAR(100) NULL,
-    maxParticipants     INTEGER NULL,
-    PRIMARY KEY (meetingId),
-    FOREIGN KEY (clubId) REFERENCES Club (clubId) ON DELETE CASCADE
-);
+ALTER TABLE Club
+    ADD CONSTRAINT  XPKClub PRIMARY KEY (clubId);
 
-CREATE UNIQUE INDEX XPKMeeting ON Meeting (meetingId ASC);
-CREATE SEQUENCE MeetingId_Seq START WITH 1 INCREMENT BY 1;
-
--- Notice 테이블 생성
-CREATE TABLE Notice
-(
-    noticeId            INTEGER NOT NULL,
-    clubId              INTEGER NOT NULL,
-    title               VARCHAR(100) NOT NULL,
-    content             VARCHAR(255) NULL,
-    pinned              BOOLEAN DEFAULT FALSE,
-    createDate          DATE DEFAULT CURRENT_DATE,
-    PRIMARY KEY (noticeId),
-    FOREIGN KEY (clubId) REFERENCES Club (clubId) ON DELETE CASCADE
-);
-
-CREATE UNIQUE INDEX XPKNotice ON Notice (noticeId ASC);
-CREATE SEQUENCE NoticeId_Seq START WITH 1 INCREMENT BY 1;
-
--- Join 테이블 생성
 CREATE TABLE Join
 (
-    userId              INTEGER NOT NULL,
-    clubId              INTEGER NOT NULL,
-    role                VARCHAR2(50) NULL,
-    PRIMARY KEY (userId, clubId),
-    FOREIGN KEY (userId) REFERENCES Member (userId),
-    FOREIGN KEY (clubId) REFERENCES Club (clubId)
+    memberId               INTEGER NOT NULL,
+    clubId               INTEGER NOT NULL,
+    role                 VARCHAR2(50) NULL
 );
 
-CREATE UNIQUE INDEX XPKJoin ON Join (userId ASC, clubId ASC);
-CREATE SEQUENCE ClubId_Seq START WITH 1 INCREMENT BY 1;
+CREATE UNIQUE INDEX XPKJoin ON Join (memberId ASC, clubId ASC);
+
+ALTER TABLE Join
+    ADD CONSTRAINT XPKJoin PRIMARY KEY (memberId, clubId);
+
+ALTER TABLE Join
+    ADD CONSTRAINT R_Join_Member FOREIGN KEY (memberId) REFERENCES Member (memberId);
+
+ALTER TABLE Join
+    ADD CONSTRAINT R_Join_Club FOREIGN KEY (clubId) REFERENCES Club (clubId);
+
+
+-- CREATE TABLE News
+-- (
+--     NewsId               INTEGER  NOT NULL ,
+--     category             VARCHAR(18)  NULL ,
+--     viewCount            INTEGER  NULL ,
+--     heartCount           INTEGER  NULL ,
+--     publishedDate                 DATE  NULL ,
+--     contentsImage        VARCHAR(18)  NULL ,
+--     press                VARCHAR(18)  NULL ,
+--     contents             VARCHAR(18)  NULL ,
+--     title                VARCHAR(18)  NULL
+-- );
+
+-- CREATE UNIQUE INDEX XPKNews ON News (NewsId ASC);
+
+-- CREATE SEQUENCE ChatRoomId_Seq START WITH 1 INCREMENT BY 1;
+-- CREATE SEQUENCE MessageId_Seq START WITH 1 INCREMENT BY 1;
+-- CREATE SEQUENCE NewsId_Seq START WITH 1 INCREMENT BY 1;
+
+-- ALTER TABLE ChatRoom
+--     ADD CONSTRAINT R_11 FOREIGN KEY (clubId) REFERENCES Club (clubId) ON DELETE SET NULL;
+--
+-- ALTER TABLE Message
+--     ADD CONSTRAINT R_7 FOREIGN KEY (ChatRoomId) REFERENCES ChatRoom (ChatRoomId);
+
+-- CREATE TABLE ChatRoom
+-- (
+--     ChatRoomId           INTEGER  NOT NULL ,
+--     myProfileImage       VARCHAR(18)  NULL ,
+--     otherProfileImage    VARCHAR(18)  NULL ,
+--     unreadCount          INTEGER  NULL ,
+--     clubId               INTEGER  NULL,
+--     PRIMARY KEY (ChatRoomId)
+-- );
+
+--CREATE UNIQUE INDEX XPKChatRoom ON ChatRoom
+--(ChatRoomId   ASC,memberId   ASC);
+
+--ALTER TABLE ChatRoom
+--   ADD CONSTRAINT  XPKChatRoom PRIMARY KEY (ChatRoomId,memberId);
+
+-- CREATE TABLE Message
+-- (
+--     messageId	        INTEGER  NOT NULL,
+--     messageTime            DATE  NULL ,
+--     viewCount            INTEGER  NULL ,
+--     content              VARCHAR(255)  NULL ,
+--     ChatRoomId           INTEGER  NOT NULL ,
+--     senderId              INTEGER  NOT NULL
+-- );
