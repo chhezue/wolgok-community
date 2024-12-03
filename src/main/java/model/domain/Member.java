@@ -1,11 +1,12 @@
 package model.domain;
 
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 public class Member {
     private int memberId;
     private String memberName;
-    private String nickname;
     private String phone;
     private String email;
     private String password;
@@ -28,14 +29,6 @@ public class Member {
 
     public void setMemberName(String memberName) {
         this.memberName = memberName;
-    }
-    
-    public String getNickname() {
-        return nickname;
-    }
-    
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 
     public String getPhone() {

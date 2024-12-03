@@ -1,17 +1,14 @@
 -- Member 테이블 생성
 CREATE TABLE Member
 (
-    memberId				INTEGER  NOT NULL,
-    memberName				VARCHAR(18)  NULL,
-    nickname				VARCHAR(18)  NULL,
-    phone					VARCHAR(18)	 NULL,
-    email					VARCHAR(50)  NULL,
-    password				VARCHAR(18)  NULL,
-    bio						VARCHAR(18)	 NULL,
-    website					VARCHAR(255) NULL
-    profileImageUrl			VARCHAR(255) NULL,
-    createAt				LocalDateTime NULL,
-    PRIMARY KEY (memberId)
+    userId               INTEGER  NOT NULL,
+    userName             VARCHAR(18)  NULL,
+    password             VARCHAR(18)  NULL,
+    nickname             VARCHAR(18)  NULL,
+    email                VARCHAR(18)  NULL,
+    profileImage         VARCHAR(18)  NULL,
+    registrationDate     DATE  NULL,
+    PRIMARY KEY (userId)
 );
 
 CREATE UNIQUE INDEX XPKMember ON Member (userId ASC);

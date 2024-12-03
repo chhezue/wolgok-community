@@ -16,20 +16,18 @@ public class MemberDAO {
     // 사용자 등록
     public int create(Member member) {
         int result = 0;
-        String insertQuery = "INSERT INTO Member (memberId, memberName, nickname, phone, email, password, bio, website, profileImageUrl, createAt) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO Member (memberId, memberName, password, nickname, email, profileImage, registrationDate, interests) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         Object[] params = new Object[]{
                 member.getMemberId(),
                 member.getMemberName(),
-                member.getNickname(),
-                member.getPhone(),
-                member.getEmail(),
                 member.getPassword(),
-                member.getBio(),
-                member.getWebsite(),
-                member.getProfileImageUrl(),
-                member.getCreatedAt()
+                member.getNickname(),
+                member.getEmail(),
+                member.getProfileImage(),
+                new java.sql.Date(member.getRegistrationDate().getTime()),
+                String.join(",", member.getInterests())
         };
 
         jdbcUtil.setSql(insertQuery);
@@ -67,14 +65,13 @@ public class MemberDAO {
                 member = new Member();
                 member.setMemberId(rs.getInt("memberId"));
                 member.setMemberName(rs.getString("memberName"));
-                member.setNickname(rs.getString("nickname"));
-                member.setPhone(rs.getString("phone"));
-                member.setEmail(rs.getString("email"));
                 member.setPassword(rs.getString("password"));
-                member.setBio(rs.getString("bio"));
-                member.setWebsite(rs.getString("website"));
-                member.setProfileImageUrl(rs.getString("profileImageUrl"));
-                member.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
+                member.setNickname(rs.getString("nickname"));
+                member.setEmail(rs.getString("email"));
+                member.setProfileImage(rs.getString("profileImage"));
+                member.setRegistrationDate(rs.getDate("registrationDate"));
+                String interests = rs.getString("interests");
+                member.setInterests(interests != null ? List.of(interests.split(",")) : new ArrayList<>());
             }
         } catch (SQLException e) {
             System.out.println("사용자 검색 오류 발생");
@@ -99,14 +96,13 @@ public class MemberDAO {
                 Member member = new Member();
                 member.setMemberId(rs.getInt("memberId"));
                 member.setMemberName(rs.getString("memberName"));
-                member.setNickname(rs.getString("nickname"));
-                member.setPhone(rs.getString("phone"));
-                member.setEmail(rs.getString("email"));
                 member.setPassword(rs.getString("password"));
-                member.setBio(rs.getString("bio"));
-                member.setWebsite(rs.getString("website"));
-                member.setProfileImageUrl(rs.getString("profileImageUrl"));
-                member.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
+                member.setNickname(rs.getString("nickname"));
+                member.setEmail(rs.getString("email"));
+                member.setProfileImage(rs.getString("profileImage"));
+                member.setRegistrationDate(rs.getDate("registrationDate"));
+                String interests = rs.getString("interests");
+                member.setInterests(interests != null ? List.of(interests.split(",")) : new ArrayList<>());
                 members.add(member);
             }
         } catch (SQLException e) {
@@ -143,10 +139,10 @@ public class MemberDAO {
     
     // 사용자 정보 업데이트
     public boolean update(Member member) {
-        String updateQuery = "UPDATE Member SET memberName = ?, nickname = ?, email = ? WHERE memberId = ?";
+        String updateQuery = "UPDATE Member SET memberName = ?, email = ? WHERE memberId = ?";
         
         jdbcUtil.setSql(updateQuery);
-        jdbcUtil.setParameters(new Object[]{member.getMemberName(), member.getNickname(), member.getEmail(), member.getMemberId()});
+        jdbcUtil.setParameters(new Object[]{member.getMemberName(), member.getEmail(), member.getMemberId()});
         
         try {
             int rowsAffected = jdbcUtil.executeUpdate();
@@ -170,10 +166,10 @@ public class MemberDAO {
     }
     
     // 닉네임 중복 여부 확인
-    public boolean isNickNameExists(String nickname) {
+    public boolean isNickNameExists(String nickName) {
         String query = "SELECT COUNT(*) FROM Member WHERE nickName = ?";
         jdbcUtil.setSql(query);
-        jdbcUtil.setParameters(new Object[]{nickname});
+        jdbcUtil.setParameters(new Object[]{nickName});
 
         try {
             ResultSet rs = jdbcUtil.executeQuery();
