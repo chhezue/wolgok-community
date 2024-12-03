@@ -19,13 +19,16 @@ CREATE TABLE Club
     clubId               INTEGER  NOT NULL,
     clubName             VARCHAR(18)  NULL,
     memberCount          INTEGER  NULL,
-    memberList           VARCHAR(255)  NULL,
-    hashtags             VARCHAR(255)  NULL,
-    description          VARCHAR(18)  NULL,
-    thumbnail            VARCHAR(18)  NULL,
+    description          VARCHAR(255)  NULL,
+    thumbnail            VARCHAR(255)  NULL,
     maxMembers           INTEGER  NULL,
+    createdAt            DATE  NULL,  -- 개설일 추가
+    category             VARCHAR(50)  NULL,  -- 카테고리 추가
+    hashtags             VARCHAR(255)  NULL,
     PRIMARY KEY (clubId)
 );
+
+CREATE UNIQUE INDEX XPKClub ON Club (clubId ASC);
 
 CREATE UNIQUE INDEX XPKClub ON Club (clubId ASC);
 

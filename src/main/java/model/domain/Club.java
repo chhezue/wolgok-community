@@ -6,14 +6,15 @@ import java.util.List;
 public class Club {
     private int clubId;
     private String clubName;
-    private String description;	// 모임 설명
-    private String representativeImageUrl;	// 대표 이미지 url
-    private List<String> hashtags;	// 해시태그 (최대 2개)
-    private int memberLimit;	// 최대 참여 인원
-    private LocalDate createdAt;	// 개설일
-    private String category;	// 실시간 인기, 신규모임 등 정보 저장
-    private List<Member> members;	// 일반 멤버 리스트
-    private Member leader; 		// 모임장 정보
+    private String description;   // 모임 설명
+    private String thumbnail;      // 대표 이미지 url
+    private List<String> hashtags; // 해시태그 (최대 2개)
+    private int maxMembers;        // 최대 참여 인원
+    private LocalDate createdAt;   // 개설일
+    private String category;        // 실시간 인기, 신규모임 등 정보 저장
+    private List<Member> members;   // 일반 멤버 리스트
+    private Member leader;          // 모임장 정보
+    private int memberCount;
 
     public int getClubId() {
         return clubId;
@@ -39,12 +40,12 @@ public class Club {
         this.description = description;
     }
 
-    public String getRepresentativeImageUrl() {
-        return representativeImageUrl;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
-    public void setRepresentativeImageUrl(String representativeImageUrl) {
-        this.representativeImageUrl = representativeImageUrl;
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public List<String> getHashtags() {
@@ -55,12 +56,12 @@ public class Club {
         this.hashtags = hashtags;
     }
 
-    public int getMemberLimit() {
-        return memberLimit;
+    public int getMaxMembers() {
+        return maxMembers;
     }
 
-    public void setMemberLimit(int memberLimit) {
-        this.memberLimit = memberLimit;
+    public void setMaxMembers(int maxMembers) {
+        this.maxMembers = maxMembers;
     }
 
     public LocalDate getCreatedAt() {
@@ -85,6 +86,11 @@ public class Club {
 
     public void setMembers(List<Member> members) {
         this.members = members;
+        if (members != null) {
+            this.memberCount = members.size(); // 멤버 수를 업데이트
+        } else {
+            this.memberCount = 0; // 멤버 리스트가 null인 경우 0으로 설정
+        }
     }
 
     public Member getLeader() {
@@ -93,5 +99,9 @@ public class Club {
 
     public void setLeader(Member leader) {
         this.leader = leader;
+    }
+
+    public int getMemberCount() {
+        return memberCount;
     }
 }
