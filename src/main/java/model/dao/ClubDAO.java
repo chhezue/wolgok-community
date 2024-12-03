@@ -1,7 +1,7 @@
 package model.dao;
 
 import model.domain.Club;
-
+import model.domain.Member; // Member 클래스 import 추가
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
@@ -22,10 +22,21 @@ public class ClubDAO {
                 club.setClubId(rs.getInt("clubId"));
                 club.setClubName(rs.getString("clubName"));
                 club.setMemberCount(rs.getInt("memberCount"));
-                // memberList와 hashtags는 추가적인 파싱 로직이 필요할 수 있음
                 club.setDescription(rs.getString("description"));
                 club.setThumbnail(rs.getString("thumbnail"));
                 club.setMaxMembers(rs.getInt("maxMembers"));
+                club.setCategory(rs.getString("category"));
+                club.setCreatedAt(rs.getDate("createdAt") != null ? rs.getDate("createdAt").toLocalDate() : null); // 개설일 추가
+
+                // 해시태그 추가
+                String hashtags = rs.getString("hashtags");
+                if (hashtags != null) {
+                    club.setHashtags(List.of(hashtags.split(","))); // 문자열을 리스트로 변환
+                }
+
+                // 클럽 ID로 멤버 리스트 가져오기
+                club.setMembers(getMembersByClubId(club.getClubId()));
+
                 list.add(club);
             }
             return list;
@@ -53,6 +64,18 @@ public class ClubDAO {
                 club.setDescription(rs.getString("description"));
                 club.setThumbnail(rs.getString("thumbnail"));
                 club.setMaxMembers(rs.getInt("maxMembers"));
+                club.setCategory(rs.getString("category"));
+                club.setCreatedAt(rs.getDate("createdAt") != null ? rs.getDate("createdAt").toLocalDate() : null); // 개설일 추가
+
+                // 해시태그 추가
+                String hashtags = rs.getString("hashtags");
+                if (hashtags != null) {
+                    club.setHashtags(List.of(hashtags.split(","))); // 문자열을 리스트로 변환
+                }
+
+                // 클럽 ID로 멤버 리스트 가져오기
+                club.setMembers(getMembersByClubId(clubId));
+
                 return club;
             }
         } catch (Exception ex) {
@@ -65,12 +88,15 @@ public class ClubDAO {
 
     // 클럽 정보를 삽입하는 메소드
     public int insertClub(Club club) {
-        String insertQuery = "INSERT INTO Club (clubId, clubName, memberCount, description, thumbnail, maxMembers) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO Club (clubId, clubName, memberCount, description, thumbnail, maxMembers, category, hashtags, createdAt) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcUtil.setSql(insertQuery);
         Object[] param = new Object[]{
                 club.getClubId(), club.getClubName(), club.getMemberCount(),
-                club.getDescription(), club.getThumbnail(), club.getMaxMembers()
+                club.getDescription(), club.getThumbnail(), club.getMaxMembers(),
+                club.getCategory(),
+                club.getHashtags() != null ? String.join(",", club.getHashtags()) : null, // 해시태그 저장
+                club.getCreatedAt() // 개설일 저장
         };
         jdbcUtil.setParameters(param);
 
@@ -88,12 +114,15 @@ public class ClubDAO {
 
     // 클럽 정보를 수정하는 메소드
     public int updateClub(Club club) {
-        String updateQuery = "UPDATE Club SET clubName = ?, memberCount = ?, description = ?, thumbnail = ?, maxMembers = ? WHERE clubId = ?";
+        String updateQuery = "UPDATE Club SET clubName = ?, memberCount = ?, description = ?, thumbnail = ?, maxMembers = ?, category = ?, hashtags = ?, createdAt = ? WHERE clubId = ?";
         jdbcUtil.setSql(updateQuery);
         Object[] param = new Object[]{
                 club.getClubName(), club.getMemberCount(),
                 club.getDescription(), club.getThumbnail(),
-                club.getMaxMembers(), club.getClubId()
+                club.getMaxMembers(), club.getCategory(),
+                club.getHashtags() != null ? String.join(",", club.getHashtags()) : null,
+                club.getCreatedAt(), // 개설일 업데이트
+                club.getClubId()
         };
         jdbcUtil.setParameters(param);
 
@@ -125,5 +154,29 @@ public class ClubDAO {
             jdbcUtil.close();
         }
         return 0;
+    }
+
+    // 클럽 ID로 멤버 리스트를 가져오는 메소드
+    private List<Member> getMembersByClubId(int clubId) {
+        List<Member> members = new ArrayList<>();
+        String query = "SELECT * FROM Member WHERE clubId = ?";
+        jdbcUtil.setSql(query);
+        jdbcUtil.setParameters(new Object[]{clubId});
+
+        try {
+            ResultSet rs = jdbcUtil.executeQuery();
+            while (rs.next()) {
+                Member member = new Member();
+                member.setId(rs.getInt("id")); // 예시
+                member.setName(rs.getString("name")); // 예시
+                // 추가 필드 설정...
+                members.add(member);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            jdbcUtil.close();
+        }
+        return members;
     }
 }
