@@ -1,6 +1,6 @@
 package controller.member;
 
-import manager.MemberManager;
+import model.service.MemberManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

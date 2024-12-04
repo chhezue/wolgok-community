@@ -1,4 +1,4 @@
-package manager;
+package model.service;
 
 import model.dao.MemberDAO;
 import model.domain.Member;
