@@ -1,6 +1,6 @@
 package controller.member;
 
-import manager.MemberManager;
+import model.service.MemberManager;
 import model.domain.Member;
 import controller.Controller;
 

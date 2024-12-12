@@ -1,28 +1,22 @@
 package controller.member;
 
-import java.util.List;
+import model.service.MemberManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import controller.Controller;
 import controller.user.UpdateUserController;
-import controller.user.UserSessionUtils;
-import model.domain.Community;
 import model.domain.Member;
-import model.domain.User;
-import model.service.MemberManager;
 
 public class UpdateMemberController implements Controller {
     private static final Logger log = LoggerFactory.getLogger(UpdateUserController.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
         MemberManager manager = MemberManager.getInstance();
         
         // GET 요청 처리 - 수정하려는 사용자 정보 가져오기
@@ -31,7 +25,7 @@ public class UpdateMemberController implements Controller {
 
             log.debug("UpdateForm Request : {}", updateId);
             
-            Member member = manager.findMember(updateId); // 수정하려는 사용자 정보 검색
+            Member member = manager.findMemberById(Integer.parseInt(updateId)); // 수정하려는 사용자 정보 검색
             request.setAttribute("member", member);
             return "/member/updateForm.jsp"; // 수정 폼으로 포워딩
         }   
