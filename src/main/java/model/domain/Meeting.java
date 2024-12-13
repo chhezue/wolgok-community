@@ -1,21 +1,39 @@
 package model.domain;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class Meeting {
     private int meetingId;
     private String name;
-    private String type; // "정규모임" or "번개모임"
-    private LocalDateTime dateTime;	// 일정 날짜, 시간
-    private LocalDateTime registrationDeadline;	// 신청 마감일
-    private String location;	// 위치
-    private int participantLimit;	// 참가 제한 인원
-    private double participationFee;	// 참가비
-    private String description;	// 일정 설명
-    private Club club;	// 소속된 모임
-    private List<Member> participants;	// 참가자 리스트
+    private String type;
+    private LocalDateTime dateTime;
+    private LocalDateTime registrationDeadline;
+    private String location;
+    private int participantLimit;
+    private double participationFee;
+    private String description;
+    private Club club;
 
+    // 기본 생성자
+    public Meeting() {
+    }
+
+    // 모든 필드를 포함하는 생성자
+    public Meeting(int meetingId, String name, String type, LocalDateTime dateTime, LocalDateTime registrationDeadline,
+                   String location, int participantLimit, double participationFee, String description, Club club) {
+        this.meetingId = meetingId;
+        this.name = name;
+        this.type = type;
+        this.dateTime = dateTime;
+        this.registrationDeadline = registrationDeadline;
+        this.location = location;
+        this.participantLimit = participantLimit;
+        this.participationFee = participationFee;
+        this.description = description;
+        this.club = club;
+    }
+
+    // Getter 및 Setter 메서드
     public int getMeetingId() {
         return meetingId;
     }
@@ -94,13 +112,5 @@ public class Meeting {
 
     public void setClub(Club club) {
         this.club = club;
-    }
-
-    public List<Member> getParticipants() {
-        return participants;
-    }
-
-    public void setParticipants(List<Member> participants) {
-        this.participants = participants;
     }
 }
