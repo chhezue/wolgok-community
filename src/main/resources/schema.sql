@@ -20,14 +20,14 @@ CREATE UNIQUE INDEX XPKMember ON Member (memberId ASC);
 CREATE TABLE Club
 (
     clubId               INTEGER NOT NULL,
-    clubName             VARCHAR(50) NULL,    -- 길이 증가
+    clubName             VARCHAR(50) NOT NULL,    -- 길이 증가
     memberCount          INTEGER NULL,
-    description          VARCHAR(255) NULL,
-    thumbnail            VARCHAR(255) NULL,
-    maxMembers           INTEGER NULL,
+    description          VARCHAR(255) NOT NULL,
+    thumbnail            VARCHAR(255) NOT NULL,
+    maxMembers           INTEGER NOT NULL,
     createdAt            TIMESTAMP NULL,       -- 데이터 타입 수정
     category             VARCHAR(50) NULL,
-    hashtags             VARCHAR(255) NULL,
+    hashtags             VARCHAR(255) NOT NULL,
     leaderId             INTEGER NULL,         -- 리더를 나타내는 외래 키 추가
     PRIMARY KEY (clubId),
     FOREIGN KEY (leaderId) REFERENCES Member (memberId) ON DELETE SET NULL  -- 리더 외래 키 설정

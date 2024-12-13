@@ -86,11 +86,6 @@ public class Club {
 
     public void setMembers(List<Member> members) {
         this.members = members;
-        if (members != null) {
-            this.memberCount = members.size(); // 멤버 수를 업데이트
-        } else {
-            this.memberCount = 0; // 멤버 리스트가 null인 경우 0으로 설정
-        }
     }
 
     public Member getLeader() {
@@ -103,5 +98,9 @@ public class Club {
 
     public int getMemberCount() {
         return memberCount;
+    }
+
+    public void setMemberCount(int memberCount) {
+        this.memberCount = memberCount;
     }
 }
