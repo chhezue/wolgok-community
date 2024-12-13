@@ -1,6 +1,7 @@
 package model.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Member {
     private int memberId;
@@ -13,6 +14,8 @@ public class Member {
     private String website; // 개인 소셜 웹사이트 URL
     private String profileImageUrl; // 프로필 이미지 URL
     private LocalDateTime createdAt; // 가입 날짜 및 시간
+    private List<Integer> joinedClubIds; // 이 회원이 소속된 클럽의 ID 리스트
+    private List<Integer> createdClubIds; // 이 회원이 개설한 클럽의 ID 리스트
 
     public int getMemberId() {
         return memberId;
@@ -92,5 +95,21 @@ public class Member {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<Integer> getCreatedClubIds() {
+        return createdClubIds;
+    }
+
+    public void setCreatedClubIds(List<Integer> createdClubIds) {
+        this.createdClubIds = createdClubIds;
+    }
+
+    public List<Integer> getJoinedClubIds() {
+        return joinedClubIds;
+    }
+
+    public void setJoinedClubIds(List<Integer> joinedClubIds) {
+        this.joinedClubIds = joinedClubIds;
     }
 }

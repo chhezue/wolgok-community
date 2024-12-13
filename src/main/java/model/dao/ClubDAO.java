@@ -83,7 +83,7 @@ public class ClubDAO {
     // 리더 설정 부분 빠져 있음.
     public List<Club> getClubList() throws SQLException {
         String sql = "SELECT * FROM Club ORDER BY clubId ASC";
-        jdbcUtil.setSqlAndParameters(sql, null);		// JDBCUtil에 query문 설정
+        jdbcUtil.setSqlAndParameters(sql, null);
 
         try {
             ResultSet rs = jdbcUtil.executeQuery();			// query 실행
@@ -92,20 +92,16 @@ public class ClubDAO {
                 Club club = new Club();
                 club.setClubId(rs.getInt("clubId"));
                 club.setClubName(rs.getString("clubName"));
-                club.setDescription(rs.getString("description"));
                 club.setThumbnail(rs.getString("thumbnail"));
                 club.setMaxMembers(rs.getInt("maxMembers"));
+                club.setMemberCount(rs.getInt("memberCount"));
+                club.setCreatedAt(rs.getDate("createdAt").toLocalDate());
 
                 // 해시태그 추가
                 String hashtags = rs.getString("hashtags");
                 if (hashtags != null) {
                     club.setHashtags(List.of(hashtags.split(","))); // 문자열을 리스트로 변환
                 }
-
-                // 클럽 ID로 멤버 리스트 가져오기
-                List<Member> members = getMembersByClubId(club.getClubId());
-                club.setMembers(members); // 멤버 리스트를 설정하여 memberCount가 업데이트됨
-                club.setMemberCount(members.size()); // 멤버 수 업데이트
 
                 // 리더 정보 가져오기
                 // Member leader = getLeaderByClubId(club.getClubId());
@@ -192,4 +188,37 @@ public class ClubDAO {
         return clubList; // 필터링된 클럽 리스트 반환
     }
 
+    // 선택한 모임의 상세 정보를 표시: ViewClubController
+    // 리더 설정 부분 빠져 있음.
+    public Club showClubDetail(int clubId) throws SQLException {
+        String sql = "SELECT * FROM Club WHERE clubId = ?";
+        Club club = null;
+
+        jdbcUtil.setSqlAndParameters(sql, new Object[] {clubId});
+
+        try {
+            ResultSet rs = jdbcUtil.executeQuery();
+            if (rs.next()) {
+                club = new Club();
+                club.setClubId(rs.getInt("clubId"));
+                club.setClubName(rs.getString("clubName"));
+                club.setDescription(rs.getString("description"));
+                club.setThumbnail(rs.getString("thumbnail"));
+                club.setMaxMembers(rs.getInt("maxMembers"));
+                club.setCreatedAt(rs.getDate("createdAt").toLocalDate());
+                club.setMemberCount(rs.getInt("memberCount"));
+
+                // 해시태그 추가
+                String hashtags = rs.getString("hashtags");
+                if (hashtags != null) {
+                    club.setHashtags(List.of(hashtags.split(","))); // 문자열을 리스트로 변환
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            jdbcUtil.close(); // 리소스 반환
+        }
+        return club; // 상세 정보가 담긴 Club 객체 반환
+    }
 }
