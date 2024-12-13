@@ -153,4 +153,43 @@ public class ClubDAO {
         return members;
     }
 
+    // 해시태그, 최대 인원을 이용하여 클럽 검색: findClubsController
+    // 표시되는 항목: 클럽 이름, 썸네일, 설명, 개설일, 현재 멤버, 최대 멤버
+    public List<Club> findClubs(String interest, int maxMembers) throws SQLException {
+        String sql = "SELECT * FROM Club WHERE maxMembers >= ?";
+
+        // 해시태그가 주어졌다면 추가 조건을 붙임
+        if (interest != null && !interest.isEmpty()) {
+            sql += " AND hashtags LIKE ?";
+        }
+
+        sql += " ORDER BY clubId ASC"; // 정렬
+
+        jdbcUtil.setSqlAndParameters(sql, new Object[] {maxMembers, interest != null ? "%" + interest + "%" : null});
+
+        List<Club> clubList = new ArrayList<Club>();
+
+        try {
+            ResultSet rs = jdbcUtil.executeQuery();
+            while (rs.next()) {
+                Club club = new Club();
+                club.setClubId(rs.getInt("clubId"));
+                club.setClubName(rs.getString("clubName"));
+                club.setDescription(rs.getString("description"));
+                club.setThumbnail(rs.getString("thumbnail"));
+                club.setMaxMembers(rs.getInt("maxMembers"));
+                club.setCreatedAt(rs.getDate("createdAt").toLocalDate());
+                club.setMemberCount(rs.getInt("memberCount"));
+
+                clubList.add(club); // List에 Club 객체 저장
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            jdbcUtil.close(); // resource 반환
+        }
+
+        return clubList; // 필터링된 클럽 리스트 반환
+    }
+
 }
