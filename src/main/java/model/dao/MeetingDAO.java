@@ -3,23 +3,21 @@ package model.dao;
 import model.domain.Meeting;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-class MeetingDAO {
-    private JDBCUtil jdbcUtil = null;
+public class MeetingDAO {
+    private JDBCUtil jdbcUtil;
 
     public MeetingDAO() {
-        jdbcUtil = new JDBCUtil(); // JDBC 연결 및 쿼리 유틸리티
+        jdbcUtil = new JDBCUtil();
     }
 
     // 1. 일정 생성
     public int create(Meeting meeting) {
-        String insertQuery = "INSERT INTO Meeting (name, type, dateTime, registrationDeadline, location, participantLimit, participationFee, description, clubId) " +
+        String query = "INSERT INTO Meeting (name, type, dateTime, registrationDeadline, location, participantLimit, participationFee, description, clubId) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-        Object[] params = new Object[]{
+        jdbcUtil.setSqlAndParameters(query, new Object[]{
                 meeting.getName(),
                 meeting.getType(),
                 Timestamp.valueOf(meeting.getDateTime()),
@@ -28,53 +26,30 @@ class MeetingDAO {
                 meeting.getParticipantLimit(),
                 meeting.getParticipationFee(),
                 meeting.getDescription(),
-                meeting.getClub().getClubId()
-        };
-
-        jdbcUtil.setSql(insertQuery);
-        jdbcUtil.setParameters(params);
+                meeting.getClubId()
+        });
 
         try {
             return jdbcUtil.executeUpdate();
         } catch (SQLException e) {
+            // SQL 관련 예외 처리
             e.printStackTrace();
-            System.out.println("SQL 실행 중 오류 발생: " + e.getMessage());
+            return 0;
         } catch (Exception e) {
+            // 기타 예외 처리
             e.printStackTrace();
-            System.out.println("기타 오류 발생: " + e.getMessage());
+            return 0;
         } finally {
             jdbcUtil.close();
         }
-        return 0;
     }
 
-    // 2. 일정 삭제
-    public int delete(int meetingId) {
-        String deleteQuery = "DELETE FROM Meeting WHERE meetingId = ?";
 
-        jdbcUtil.setSql(deleteQuery);
-        jdbcUtil.setParameters(new Object[]{meetingId});
-
-        try {
-            return jdbcUtil.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("기타 오류 발생: " + e.getMessage());
-        }
-        finally {
-            jdbcUtil.close();
-        }
-        return 0;
-    }
-
-    // 3. 일정 수정
+    // 2. 일정 수정
     public int update(Meeting meeting) {
-        String updateQuery = "UPDATE Meeting SET name = ?, type = ?, dateTime = ?, registrationDeadline = ?, location = ?, participantLimit = ?, participationFee = ?, description = ? " +
+        String query = "UPDATE Meeting SET name = ?, type = ?, dateTime = ?, registrationDeadline = ?, location = ?, participantLimit = ?, participationFee = ?, description = ? " +
                 "WHERE meetingId = ?";
-
-        Object[] params = new Object[]{
+        jdbcUtil.setSqlAndParameters(query, new Object[]{
                 meeting.getName(),
                 meeting.getType(),
                 Timestamp.valueOf(meeting.getDateTime()),
@@ -84,83 +59,93 @@ class MeetingDAO {
                 meeting.getParticipationFee(),
                 meeting.getDescription(),
                 meeting.getMeetingId()
-        };
-
-        jdbcUtil.setSql(updateQuery);
-        jdbcUtil.setParameters(params);
+        });
 
         try {
             return jdbcUtil.executeUpdate();
         } catch (SQLException e) {
+            // SQL 관련 예외 처리
             e.printStackTrace();
+            return 0;
         } catch (Exception e) {
+            // 기타 예외 처리
             e.printStackTrace();
-            System.out.println("기타 오류 발생: " + e.getMessage());
-        }
-        finally {
+            return 0;
+        } finally {
             jdbcUtil.close();
         }
-        return 0;
     }
+
+
+    // 3. 일정 삭제
+    public int delete(int meetingId) {
+        String query = "DELETE FROM Meeting WHERE meetingId = ?";
+        jdbcUtil.setSqlAndParameters(query, new Object[]{meetingId});
+
+        try {
+            return jdbcUtil.executeUpdate();
+        } catch (SQLException e) {
+            // SQL 관련 예외 처리
+            e.printStackTrace();
+            return 0;
+        } catch (Exception e) {
+            // 기타 예외 처리
+            e.printStackTrace();
+            return 0;
+        } finally {
+            jdbcUtil.close();
+        }
+    }
+
 
     // 4. 일정 조회 (ID 기준)
     public Meeting findById(int meetingId) {
-        String selectQuery = "SELECT * FROM Meeting WHERE meetingId = ?";
-        jdbcUtil.setSql(selectQuery);
-        jdbcUtil.setParameters(new Object[]{meetingId});
-
-        Meeting meeting = null;
+        String query = "SELECT * FROM Meeting WHERE meetingId = ?";
+        jdbcUtil.setSqlAndParameters(query, new Object[]{meetingId});
 
         try (ResultSet rs = jdbcUtil.executeQuery()) {
             if (rs.next()) {
-                meeting = new Meeting();
-                meeting.setMeetingId(rs.getInt("meetingId"));
-                meeting.setName(rs.getString("name"));
-                meeting.setType(rs.getString("type"));
-                meeting.setDateTime(rs.getTimestamp("dateTime").toLocalDateTime());
-                meeting.setRegistrationDeadline(rs.getTimestamp("registrationDeadline").toLocalDateTime());
-                meeting.setLocation(rs.getString("location"));
-                meeting.setParticipantLimit(rs.getInt("participantLimit"));
-                meeting.setParticipationFee(rs.getDouble("participationFee"));
-                meeting.setDescription(rs.getString("description"));
+                return mapResultSetToMeeting(rs);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             jdbcUtil.close();
         }
-
-        return meeting;
+        return null;
     }
 
     // 5. 일정 목록 조회 (clubId 기준)
-    public List<Meeting> findMeetingsByClubId(int clubId) {
-        String selectQuery = "SELECT * FROM Meeting WHERE clubId = ? ORDER BY dateTime ASC";
-        jdbcUtil.setSql(selectQuery);
-        jdbcUtil.setParameters(new Object[]{clubId});
-
+    public List<Meeting> findAllByClubId(int clubId) {
+        String query = "SELECT * FROM Meeting WHERE clubId = ? ORDER BY dateTime";
+        jdbcUtil.setSqlAndParameters(query, new Object[]{clubId});
         List<Meeting> meetings = new ArrayList<>();
 
         try (ResultSet rs = jdbcUtil.executeQuery()) {
             while (rs.next()) {
-                Meeting meeting = new Meeting();
-                meeting.setMeetingId(rs.getInt("meetingId"));
-                meeting.setName(rs.getString("name"));
-                meeting.setType(rs.getString("type"));
-                meeting.setDateTime(rs.getTimestamp("dateTime").toLocalDateTime());
-                meeting.setRegistrationDeadline(rs.getTimestamp("registrationDeadline").toLocalDateTime());
-                meeting.setLocation(rs.getString("location"));
-                meeting.setParticipantLimit(rs.getInt("participantLimit"));
-                meeting.setParticipationFee(rs.getDouble("participationFee"));
-                meeting.setDescription(rs.getString("description"));
-                meetings.add(meeting);
+                meetings.add(mapResultSetToMeeting(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             jdbcUtil.close();
         }
-
         return meetings;
+    }
+
+    // ResultSet → Meeting 변환
+    private Meeting mapResultSetToMeeting(ResultSet rs) throws SQLException {
+        return new Meeting(
+                rs.getInt("meetingId"),
+                rs.getString("name"),
+                rs.getString("type"),
+                rs.getTimestamp("dateTime").toLocalDateTime(),
+                rs.getTimestamp("registrationDeadline").toLocalDateTime(),
+                rs.getString("location"),
+                rs.getInt("participantLimit"),
+                rs.getDouble("participationFee"),
+                rs.getString("description"),
+                rs.getInt("clubId")
+        );
     }
 }

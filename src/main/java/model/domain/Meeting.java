@@ -1,21 +1,40 @@
 package model.domain;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class Meeting {
+    // Fields
     private int meetingId;
     private String name;
     private String type; // "정규모임" or "번개모임"
-    private LocalDateTime dateTime;	// 일정 날짜, 시간
-    private LocalDateTime registrationDeadline;	// 신청 마감일
-    private String location;	// 위치
-    private int participantLimit;	// 참가 제한 인원
-    private double participationFee;	// 참가비
-    private String description;	// 일정 설명
-    private Club club;	// 소속된 모임
-    private List<Member> participants;	// 참가자 리스트
+    private LocalDateTime dateTime; // 일정 날짜, 시간
+    private LocalDateTime registrationDeadline; // 신청 마감일
+    private String location; // 위치
+    private int participantLimit; // 참가 제한 인원
+    private double participationFee; // 참가비
+    private String description; // 일정 설명
+    private int clubId; // 소속된 모임의 ID
 
+    // 기본 생성자
+    public Meeting() {}
+
+    // 모든 필드를 포함하는 생성자
+    public Meeting(int meetingId, String name, String type, LocalDateTime dateTime,
+                   LocalDateTime registrationDeadline, String location, int participantLimit,
+                   double participationFee, String description, int clubId) {
+        this.meetingId = meetingId;
+        this.name = name;
+        this.type = type;
+        this.dateTime = dateTime;
+        this.registrationDeadline = registrationDeadline;
+        this.location = location;
+        this.participantLimit = participantLimit;
+        this.participationFee = participationFee;
+        this.description = description;
+        this.clubId = clubId;
+    }
+
+    // Getters and Setters
     public int getMeetingId() {
         return meetingId;
     }
@@ -88,19 +107,28 @@ public class Meeting {
         this.description = description;
     }
 
-    public Club getClub() {
-        return club;
+    public int getClubId() {
+        return clubId;
     }
 
-    public void setClub(Club club) {
-        this.club = club;
+    public void setClubId(int clubId) {
+        this.clubId = clubId;
     }
 
-    public List<Member> getParticipants() {
-        return participants;
-    }
-
-    public void setParticipants(List<Member> participants) {
-        this.participants = participants;
+    // toString() for debugging purposes
+    @Override
+    public String toString() {
+        return "Meeting{" +
+                "meetingId=" + meetingId +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", dateTime=" + dateTime +
+                ", registrationDeadline=" + registrationDeadline +
+                ", location='" + location + '\'' +
+                ", participantLimit=" + participantLimit +
+                ", participationFee=" + participationFee +
+                ", description='" + description + '\'' +
+                ", clubId=" + clubId +
+                '}';
     }
 }
