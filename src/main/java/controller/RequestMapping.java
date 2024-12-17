@@ -6,6 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import controller.member.*;
+import controller.user.DeleteUserController;
+import controller.user.ListUserController;
+import controller.user.LoginController;
+import controller.user.LogoutController;
+import controller.user.RegisterUserController;
+import controller.user.UpdateUserController;
+import controller.user.ViewUserController;
 import controller.comm.*;
 
 public class RequestMapping {

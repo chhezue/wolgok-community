@@ -1,6 +1,7 @@
 package model.service;
 
 import model.dao.MemberDAO;
+import model.domain.Club;
 import model.domain.Member;
 
 import java.util.List;
@@ -62,5 +63,20 @@ public class MemberManager {
     // 이메일 중복 확인
     public boolean findMemberByEmail(String email) {
         return memberDAO.isEmailExists(email);
+    }
+    
+    // 클럽 가입 로직
+    public boolean joinClub(int clubId, int memberId) {
+        return memberDAO.joinClub(clubId, memberId); 
+    }
+
+    // 가입한 클럽 리스트 조회
+    public List<Club> findJoinedClubs(int memberId) {
+        return memberDAO.findJoinedClubs(memberId);
+    }
+
+    // 생성한 클럽 리스트 조회
+    public List<Club> findCreatedClubs(int memberId) {
+        return memberDAO.findCreatedClubs(memberId);
     }
 }
