@@ -27,7 +27,7 @@ public class UpdateMemberController implements Controller {
             
             Member member = manager.findMemberById(Integer.parseInt(updateId)); // 수정하려는 사용자 정보 검색
             request.setAttribute("member", member);
-            return "/member/updateForm.jsp"; // 수정 폼으로 포워딩
+            return "/member/myPage.jsp.jsp"; // 수정 폼으로 포워딩
         }   
         
         // POST 요청 처리 - 수정된 사용자 정보 받아오기
@@ -51,7 +51,7 @@ public class UpdateMemberController implements Controller {
         } else {
             // 수정 실패 시 수정 폼으로 돌아가기
             request.setAttribute("errorMessage", "정보 수정에 실패했습니다.");
-            return "/member/updateForm.jsp";
+            return "/member/myPage.jsp.jsp";
         }
     }
 

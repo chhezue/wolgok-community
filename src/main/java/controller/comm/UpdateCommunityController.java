@@ -28,7 +28,7 @@ public class UpdateCommunityController implements Controller {
 			
 			List<User> members = manager.findCommunityMembers(commId); // 커뮤니티 회원 리스트 검색
 			request.setAttribute("members", members);		
-			return "/community/updateForm.jsp";   // 검색한 정보를 update form으로 전송     
+			return "/community/myPage.jsp.jsp";   // 검색한 정보를 update form으로 전송
 	    }	
     	
     	// POST request (커뮤니티 정보가 parameter로 전송됨)

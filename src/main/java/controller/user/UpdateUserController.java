@@ -40,7 +40,7 @@ public class UpdateUserController implements Controller {
 				List<Community> commList = manager.findCommunityList();	// 커뮤니티 리스트 검색
 				request.setAttribute("commList", commList);	
 				
-				return "/user/updateForm.jsp";   // 검색한 사용자 정보 및 커뮤니티 리스트를 updateForm으로 전송     
+				return "/user/myPage.jsp.jsp";   // 검색한 사용자 정보 및 커뮤니티 리스트를 updateForm으로 전송
 			}    
 			
 			// else (수정 불가능한 경우) 사용자 보기 화면으로 오류 메세지를 전달
