@@ -1,10 +1,8 @@
 package model.dao;
 
 import model.domain.Club;
-import model.domain.Community;
 import model.domain.Member; // Member 클래스 import 추가
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
