@@ -12,6 +12,7 @@ public class NoticeDAO {
     private int clubId; // 클럽 ID
 
     // 생성자
+    //안녕하세요
     public NoticeDAO(int clubId) {
         this.clubId = clubId; // 생성 시 클럽 ID 초기화
     }
