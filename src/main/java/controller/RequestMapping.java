@@ -32,12 +32,10 @@ public class RequestMapping {
         
         // 회원 가입 폼 요청과 가입 요청 처리 병합 (폼에 커뮤니티 선택 메뉴 추가를 위함)
 //      mappings.put("/user/register/form", new ForwardController("/user/registerForm.jsp"));
-//      mappings.put("/user/register", new RegisterUserController());
         mappings.put("/user/register", new RegisterUserController());
 
         // 사용자 정보 수정 폼 요청과 수정 요청 처리 병합
 //      mappings.put("/user/update/form", new UpdateUserFormController());
-//      mappings.put("/user/update", new UpdateUserController());
         mappings.put("/user/update", new UpdateUserController());
         
         mappings.put("/user/delete", new DeleteUserController());
@@ -53,6 +51,13 @@ public class RequestMapping {
         mappings.put("/member/register", new RegisterMemberController()); // 사용자 등록
         mappings.put("/member/findInfo", new FindInfoController());       // 아이디 및 비밀번호 찾기
         mappings.put("/member/delete", new DeleteMemberController());   //사용자 계정 삭제
+        
+        // member 등록 및 로그인 매핑 추가
+        
+        
+        // member 매핑 추가
+        mappings.put("/wolgok-community/member/mypage", new ForwardController("/member/myPage.jsp")); // main 메뉴에서 마이페이지로 이동
+        mappings.put("/wolgok-community/member/myclub", new ForwardController("/member/myClub.jsp")); // main 메뉴에서 나의모임으로 이동
         
         logger.info("Initialized Request Mapping!");
     }

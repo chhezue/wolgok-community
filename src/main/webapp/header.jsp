@@ -21,7 +21,7 @@
             </div>
 
             <div class="hidden lg:flex lg:items-center lg:space-x-6">
-                <a href="/mypage" class="text-sm font-medium text-gray-700 hover:text-custom">
+                <a href="/member/myPage.jsp" class="text-sm font-medium text-gray-700 hover:text-custom">
                     <i class="far fa-user mr-2"></i>마이페이지
                 </a>
                 <a href="/my-groups" class="text-sm font-medium text-gray-700 hover:text-custom">
@@ -45,10 +45,10 @@
         </div>
 
         <div class="lg:hidden absolute top-full left-0 w-full bg-white border-t border-gray-200 py-4 px-6 space-y-4 hidden">
-            <a href="/mypage" class="block text-base font-medium text-gray-700 hover:text-custom">
+            <a href="/wolgok-community/member/mypage" class="block text-base font-medium text-gray-700 hover:text-custom">
                 <i class="far fa-user mr-2"></i>마이페이지
             </a>
-            <a href="/my-groups" class="block text-base font-medium text-gray-700 hover:text-custom">
+            <a href="/wolgok-community/member/myclub" class="block text-base font-medium text-gray-700 hover:text-custom">
                 <i class="far fa-calendar-alt mr-2"></i>나의 모임
             </a>
             <a href="/find-groups" class="block text-base font-medium text-purple-600 hover:text-purple-500"><i class="far fa-compass mr-2"></i><span class="font-bold">모임 찾아보기</span></a>

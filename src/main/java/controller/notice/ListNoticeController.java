@@ -18,7 +18,7 @@ public class ListNoticeController implements Controller {
         int clubId = Integer.parseInt(clubIdStr); // 클럽 ID를 정수형으로 변환
 
         // 공지 목록 가져오기
-        List<Notice> noticeList = noticeDAO.listAllNotices(clubId);
+        List<Notice> noticeList = noticeDAO.listAllNotice(clubId);
 
         // noticeList 객체를 request에 저장하여 어느 화면으로 이동? (forwarding)
         request.setAttribute("noticeList", noticeList);

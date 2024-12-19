@@ -18,7 +18,13 @@ public class FindJoinedClubsController implements Controller {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        int memberId = Integer.parseInt(request.getParameter("memberId"));
+        Integer memberId = (Integer) request.getSession().getAttribute("memberId");
+        
+        if (memberId == null) {
+            // 로그인되지 않은 경우, 로그인 페이지로 리다이렉트
+            response.sendRedirect("/login.jsp");
+            return null;
+        }
         
         try {
             List<Club> joinedClubs = memberManager.findJoinedClubs(memberId);

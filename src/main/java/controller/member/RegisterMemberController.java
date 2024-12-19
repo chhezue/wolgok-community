@@ -31,10 +31,14 @@ public class RegisterMemberController implements Controller {
 
         if (success) {
             request.setAttribute("message", "회원 등록 성공");
-            return "/member/registerSuccess.jsp"; // Forwarding
+            return "/member/loginForm.jsp";
+//            return "/member/registerSuccess.jsp"; // Forwarding
         } else {
             request.setAttribute("error", "회원 등록 실패");
-            return "/member/registerFail.jsp"; // Forwarding
+            System.out.println(memberName);
+            System.out.println(password);
+            return "/member/registerForm.jsp";
+//            return "/member/registerFail.jsp"; // Forwarding
         }
     }
 }
