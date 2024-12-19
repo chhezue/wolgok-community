@@ -23,7 +23,7 @@ public class NoticeManager {
             System.out.println("공지사항 정보가 유효하지 않습니다.");
             return 0;
         }
-        return noticeDAO.create(notice);
+        return noticeDAO.createNotice(notice);
     }
 
     // 공지사항 삭제
@@ -33,7 +33,7 @@ public class NoticeManager {
             System.out.println("삭제할 공지사항이 존재하지 않습니다.");
             return 0;
         }
-        return noticeDAO.delete(noticeId);
+        return noticeDAO.deleteNotice(noticeId);
     }
 
     // 공지사항 조회
@@ -47,6 +47,6 @@ public class NoticeManager {
 
     // 모든 공지사항 목록 조회
     public List<Notice> listAllNotice(int clubId) {
-        return noticeDAO.listAllNotices(clubId);
+        return noticeDAO.listAllNotice(clubId);
     }
 }

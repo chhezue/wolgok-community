@@ -16,6 +16,10 @@ public class NoticeDAO {
         this.clubId = clubId; // 생성 시 클럽 ID 초기화
     }
 
+    public NoticeDAO() {
+        // TODO Auto-generated constructor stub
+    }
+
     // 공지사항 생성
     public int createNotice(Notice notice) {
         String sql = "INSERT INTO Notice (clubId, title, content, pinned, createdAt) VALUES (?, ?, ?, ?, ?)";
@@ -68,7 +72,7 @@ public class NoticeDAO {
     }
 
     // 특정 클럽의 모든 공지사항 목록 조회
-    public List<Notice> listAllNotice() {
+    public List<Notice> listAllNotice(int clubId) {
         List<Notice> notices = new ArrayList<>();
         String sql = "SELECT * FROM Notice WHERE clubId = ?";
         jdbcUtil.setSql(sql);
