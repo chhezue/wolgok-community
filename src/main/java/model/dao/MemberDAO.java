@@ -6,7 +6,6 @@ import model.domain.Member;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class MemberDAO {
@@ -21,15 +20,8 @@ public class MemberDAO {
         int result = 0;
         LocalDateTime today = LocalDateTime.now();
         Timestamp timestamp = Timestamp.valueOf(today);
-<<<<<<< Updated upstream
-        
-        String insertQuery = "INSERT INTO Member (memberId, memberName, password, nickname, email, createdAt) " +
-                "VALUES (dbp2024.MemberId_Seq.NEXTVAL, ?, ?, ?, ?, ?)";
-=======
-
         String insertQuery = "INSERT INTO Member (memberId, memberName, nickname, password, email, phone, bio, profileImageUrl, website, createdAt) " +
                 "VALUES (dbp2024.MemberId_Seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
->>>>>>> Stashed changes
 
         Object[] params = new Object[]{
                 member.getMemberName(),
@@ -325,7 +317,6 @@ public class MemberDAO {
     
     
     // 회원이 가입한 클럽 조회
-    @SuppressWarnings("unchecked")
     public List<Club> findJoinedClubs(int memberId) {
         // Member 테이블에서 joinedClubIds 조회
         String memberQuery = "SELECT joinedClubIds FROM Member WHERE memberId = ?";

@@ -3,7 +3,6 @@ package model.service;
 import model.dao.MemberDAO;
 import model.domain.Club;
 import model.domain.Member;
-import model.domain.User;
 
 import java.sql.SQLException;
 import java.util.List;
