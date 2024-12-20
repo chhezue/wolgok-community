@@ -258,4 +258,82 @@ public class ClubDAO {
         }
         return club; // 상세 정보가 담긴 Club 객체 반환
     }
+
+    public int getTotalMemberCount(int clubId, String memberType, String searchKeyword) throws SQLException {
+        StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM ClubMember cm JOIN Member m ON cm.memberId = m.memberId WHERE cm.clubId = ?");
+        List<Object> params = new ArrayList<>();
+        params.add(clubId);
+
+        if (memberType != null && !memberType.equals("all")) {
+            if (memberType.equals("leader")) {
+                sql.append(" AND cm.isLeader = 1");
+            } else {
+                sql.append(" AND cm.isLeader = 0");
+            }
+        }
+
+        if (searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+            sql.append(" AND (m.memberName LIKE ? OR m.nickname LIKE ?)");
+            params.add("%" + searchKeyword + "%");
+            params.add("%" + searchKeyword + "%");
+        }
+
+        try {
+            jdbcUtil.setSqlAndParameters(sql.toString(), params.toArray());
+            ResultSet rs = jdbcUtil.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } finally {
+            jdbcUtil.close();
+        }
+        return 0;
+    }
+
+    public List<Member> getMembersByClubId(int clubId, int offset, int limit, String memberType, String searchKeyword) throws SQLException {
+        StringBuilder sql = new StringBuilder(
+                "SELECT m.*, cm.isLeader, cm.joinedAt, cm.lastActivityAt " +
+                        "FROM ClubMember cm " +
+                        "JOIN Member m ON cm.memberId = m.memberId " +
+                        "WHERE cm.clubId = ?"
+        );
+        List<Object> params = new ArrayList<>();
+        params.add(clubId);
+
+        if (memberType != null && !memberType.equals("all")) {
+            if (memberType.equals("leader")) {
+                sql.append(" AND cm.isLeader = 1");
+            } else {
+                sql.append(" AND cm.isLeader = 0");
+            }
+        }
+
+        if (searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+            sql.append(" AND (m.memberName LIKE ? OR m.nickname LIKE ?)");
+            params.add("%" + searchKeyword + "%");
+            params.add("%" + searchKeyword + "%");
+        }
+
+        sql.append(" ORDER BY cm.isLeader DESC, cm.joinedAt ASC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
+        params.add(offset);
+        params.add(limit);
+
+        List<Member> members = new ArrayList<>();
+        try {
+            jdbcUtil.setSqlAndParameters(sql.toString(), params.toArray());
+            ResultSet rs = jdbcUtil.executeQuery();
+            while (rs.next()) {
+                Member member = new Member();
+                member.setMemberId(rs.getInt("memberId"));
+                member.setMemberName(rs.getString("memberName"));
+                member.setNickname(rs.getString("nickname"));
+                member.setProfileImageUrl(rs.getString("profileImageUrl"));
+                member.setCreatedAt(rs.getTimestamp("joinedAt").toLocalDateTime());
+                members.add(member);
+            }
+        } finally {
+            jdbcUtil.close();
+        }
+        return members;
+    }
 }
