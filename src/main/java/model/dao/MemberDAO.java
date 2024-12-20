@@ -169,10 +169,10 @@ public class MemberDAO {
     
     // 사용자 정보 업데이트
     public boolean update(Member member) {
-        String updateQuery = "UPDATE Member SET memberName = ?, nickname = ?, email = ? WHERE memberId = ?";
+        String updateQuery = "UPDATE Member SET memberName = ?, phone = ?, bio = ?, website = ? WHERE memberId = ?";
         
         jdbcUtil.setSql(updateQuery);
-        jdbcUtil.setParameters(new Object[]{member.getMemberName(), member.getNickname(), member.getEmail(), member.getMemberId()});
+        jdbcUtil.setParameters(new Object[]{member.getMemberName(), member.getPhone(), member.getBio(), member.getWebsite(), member.getMemberId()});
         
         try {
             int rowsAffected = jdbcUtil.executeUpdate();

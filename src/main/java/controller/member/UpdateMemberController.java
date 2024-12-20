@@ -4,6 +4,7 @@ import model.service.MemberManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,27 +20,35 @@ public class UpdateMemberController implements Controller {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         MemberManager manager = MemberManager.getInstance();
         
-        // GET 요청 처리 - 수정하려는 사용자 정보 가져오기
-        if (request.getMethod().equals("GET")) {    
-            String updateId = request.getParameter("memberId");
-
-            log.debug("UpdateForm Request : {}", updateId);
-            
-            Member member = manager.findMemberById(Integer.parseInt(updateId)); // 수정하려는 사용자 정보 검색
-            request.setAttribute("member", member);
-            return "/member/updateForm.jsp"; // 수정 폼으로 포워딩
-        }   
+//        // GET 요청 처리 - 수정하려는 사용자 정보 가져오기
+//        if (request.getMethod().equals("GET")) {    
+//            String updateId = request.getParameter("memberId");
+//
+//            log.debug("UpdateForm Request : {}", updateId);
+//            
+//            Member member = manager.findMemberById(Integer.parseInt(updateId)); // 수정하려는 사용자 정보 검색
+//            request.setAttribute("member", member);
+//            return "/member/updateForm.jsp"; // 수정 폼으로 포워딩
+//        }   
         
         // POST 요청 처리 - 수정된 사용자 정보 받아오기
-        int memberId = Integer.parseInt(request.getParameter("memberId"));
+        HttpSession session = request.getSession();
+        Integer memberId = (Integer) session.getAttribute(MemberSessionUtils.MEMBER_SESSION_KEY);
+
+        int id = memberId.intValue();
         String name = request.getParameter("name");
+        String phone = request.getParameter("phone");
         String email = request.getParameter("email");
+        String bio = request.getParameter("bio");
+        String website = request.getParameter("website");
         
         // 사용자 정보 업데이트
         Member updateMember = new Member();
-        updateMember.setMemberId(memberId);
+        updateMember.setMemberId(id);
         updateMember.setMemberName(name);
+        updateMember.setPhone(phone);
         updateMember.setEmail(email);
+        updateMember.setBio(bio);
 
         log.debug("Update Member : {}", updateMember);
 

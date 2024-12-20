@@ -16,16 +16,24 @@ public class RegisterMemberController implements Controller {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String memberName = request.getParameter("memberName");
-        String password = request.getParameter("password");
+        String memberName = request.getParameter("name");
         String nickname = request.getParameter("nickname");
+        String password = request.getParameter("password");
         String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String bio = request.getParameter("introduction");
+        String profileImgUrl = request.getParameter("profile_image");
+        String website = request.getParameter("website");
 
         Member member = new Member();
         member.setMemberName(memberName);
-        member.setPassword(password);
         member.setNickname(nickname);
+        member.setPassword(password);
         member.setEmail(email);
+        member.setPhone(phone);
+        member.setBio(bio);
+        member.setProfileImageUrl(profileImgUrl);
+        member.setWebsite(website);
 
         boolean success = memberManager.createMember(member);
 
