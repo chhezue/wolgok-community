@@ -25,7 +25,8 @@
                 <p class="mt-1 text-sm text-gray-600">모임에 대한 정보를 입력해주세요.</p>
             </div>
 
-            <form action="<c:url value='/club/create'/>" method="POST" enctype="multipart/form-data">
+            <!-- 경로 찾기 실패 -->
+            <form action="<c:url value=''/>" method="POST" enctype="multipart/form-data">
                 <div class="space-y-6">
                     <div class="mb-6"><label class="block text-sm font-medium text-gray-700">모임 대표 사진</label>
                         <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
