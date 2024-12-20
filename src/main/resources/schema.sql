@@ -7,7 +7,7 @@ CREATE TABLE Member
     phone                 VARCHAR(20) NULL,
     email                 VARCHAR(100) NULL,
     password              VARCHAR(100) NULL,
-    bio                   VARCHAR(255) NULL,
+    bio                   VARCHAR(100) NULL,
     website               VARCHAR(255) NULL,
     profileImageUrl       VARCHAR(255) NULL,
     createdAt             TIMESTAMP NULL,
