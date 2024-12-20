@@ -2,12 +2,12 @@
 CREATE TABLE Member
 (
     memberId              INTEGER NOT NULL,
-    memberName            VARCHAR(50) NULL,
-    nickname              VARCHAR(30) NULL,
-    phone                 VARCHAR(20) NULL,
-    email                 VARCHAR(100) NULL,
-    password              VARCHAR(100) NULL,
-    bio                   VARCHAR(100) NULL,
+    memberName            VARCHAR(50) NOT NULL,
+    nickname              VARCHAR(30) NOT NULL,
+    phone                 VARCHAR(20) NOT NULL,
+    email                 VARCHAR(100) NOT NULL,
+    password              VARCHAR(15) NOT NULL,
+    bio                   VARCHAR(50) NULL,
     website               VARCHAR(255) NULL,
     profileImageUrl       VARCHAR(255) NULL,
     createdAt             TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
