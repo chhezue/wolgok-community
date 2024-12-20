@@ -85,7 +85,7 @@
                                  alt="Profile preview" class="h-full w-full object-cover"/>
                         </div>
                         <input type="file" id="profile_image" name="profile_image" accept="image/*" class="hidden"/>
-                        <button type="button" onclick="document.getElementById(&#39;profile_image&#39;).click()"
+                        <button type="button" onclick="document.getElementById('profile_image').click()"
                                 class="!rounded-button inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom">
                             이미지 업로드
                         </button>
