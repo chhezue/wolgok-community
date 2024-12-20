@@ -5,6 +5,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>나의 모임 관리</title>
+<<<<<<< Updated upstream
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
     <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet"/>
@@ -27,10 +28,73 @@
                                 <img class="h-8 w-8 rounded-full" src="<%=  %>" alt="프로필"/>
                                 <span class="text-gray-700"><%=  %>님</span>
                             </div>
+=======
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&amp;display=swap"
+          rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+    <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#000000"
+            data-border-radius="small"></script>
+</head>
+<body class="bg-gray-50 font-[Noto Sans KR]">
+<div class="min-h-screen">
+    <jsp:include page="../header.jsp"/>
+
+    <main class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-gray-900">나의 모임 관리</h1>
+        </div>
+
+        <div class="mb-8 flex flex-wrap gap-4 items-center justify-between">
+            <div class="flex-1 min-w-[300px]">
+                <div class="relative">
+                    <input type="text" placeholder="모임명 검색"
+                           class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-custom focus:border-custom"/>
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-search text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <select class="border border-gray-300 rounded-md focus:ring-custom focus:border-custom py-2 pl-3 pr-8">
+                    <option value="">전체 역할</option>
+                    <option value="leader">모임장</option>
+                    <option value="member">일반 멤버</option>
+                </select>
+                <button class="bg-custom text-white px-4 py-2 rounded-md hover:bg-custom/90 flex items-center"><i
+                        class="fas fa-plus mr-2"></i>모임 생성하기
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <img src="https://creatie.ai/ai/api/search-image?query=A group of diverse people collaborating in a modern office space, discussing ideas around a table with laptops and notepads, showing teamwork and engagement&width=400&height=250&orientation=landscape&flag=8cad12cb-24a1-40bd-a8da-f2e8a18b114a&flag=648eec81-8fa1-4eec-b23e-11e4a7088928&flag=a411c964-d1cb-4127-b5ae-004c44ce1b91&flag=fbf9d9e5-547f-4609-9e9a-3877ac4e916d&flag=9a45d2ff-9aaa-44e9-a43f-deaab50f6da8"
+                     alt="모임 이미지" class="w-full h-48 object-cover"/>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-900">독서토론 모임</h3>
+                        <span class="px-3 py-1 bg-custom text-white text-sm rounded-full">모임장</span>
+                    </div>
+                    <div class="space-y-2 mb-4">
+                        <p class="text-sm text-gray-600"><i class="fas fa-users mr-2"></i>멤버 32명</p>
+                        <p class="text-sm text-gray-600"><i class="fas fa-calendar mr-2"></i>가입일: 2024.01.15</p>
+                    </div>
+                    <div class="border-t pt-4">
+                        <p class="text-sm text-gray-600 mb-4">최근 정모 일정: 2024.03.15</p>
+                        <div class="flex space-x-3">
+                            <button class="flex-1 bg-custom text-white py-2 !rounded-button hover:bg-custom/90">입장하기
+                            </button>
+                            <button class="flex-1 bg-gray-100 text-gray-700 py-2 !rounded-button hover:bg-gray-200">
+                                수정하기
+                            </button>
+>>>>>>> Stashed changes
                         </div>
                     </div>
                 </div>
             </div>
+<<<<<<< Updated upstream
         </nav>
 
         <main class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -101,6 +165,10 @@
                 </nav>
             </div>
         </main>
+=======
+    </div>
+    </main>
+>>>>>>> Stashed changes
     </div>
 
     <div id="leaveConfirmModal" class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">

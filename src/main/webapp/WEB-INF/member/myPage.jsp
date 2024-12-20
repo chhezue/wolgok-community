@@ -130,4 +130,9 @@
             </div>
         </div>
     </main>
+<<<<<<< Updated upstream
 </body></html>
+=======
+	</body>
+</html>
+>>>>>>> Stashed changes
