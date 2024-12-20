@@ -9,20 +9,24 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class findClubsController implements Controller {
-    private final ClubDAO clubDAO = new ClubDAO(); // ClubDAO 인스턴스 생성
+    private final ClubDAO clubDAO = new ClubDAO();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String interest = request.getParameter("interest");
-        int maxMembers = Integer.parseInt(request.getParameter("maxMembers"));
-
-        // 클럽의 멤버 리스트 가져오기
-        List<Club> clubs = clubDAO.findClubs(interest, maxMembers);
-
-        // 멤버 리스트를 request에 저장
+        // 필터 파라미터 받기
+        String[] interests = request.getParameterValues("interests");
+        String memberRange = request.getParameter("memberRange");
+        String sortBy = request.getParameter("sortBy");
+        
+        // 클럽 리스트 조회
+        List<Club> clubs = clubDAO.findClubs(interests, memberRange, sortBy);
+        
+        // 검색 결과를 request에 저장
         request.setAttribute("clubs", clubs);
-
-        // 검색 결과 페이지로 이동
-        return "/club/";
+        request.setAttribute("selectedInterests", interests);
+        request.setAttribute("selectedMemberRange", memberRange);
+        request.setAttribute("selectedSortBy", sortBy);
+        
+        return "/club/clubSearch.jsp";
     }
 }
