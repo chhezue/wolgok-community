@@ -17,16 +17,16 @@ public class findClubsController implements Controller {
         String[] interests = request.getParameterValues("interests");
         String memberRange = request.getParameter("memberRange");
         String sortBy = request.getParameter("sortBy");
-        
+
         // 클럽 리스트 조회
         List<Club> clubs = clubDAO.findClubs(interests, memberRange, sortBy);
-        
+
         // 검색 결과를 request에 저장
         request.setAttribute("clubs", clubs);
         request.setAttribute("selectedInterests", interests);
         request.setAttribute("selectedMemberRange", memberRange);
         request.setAttribute("selectedSortBy", sortBy);
-        
+
         return "/club/clubSearch.jsp";
     }
 }

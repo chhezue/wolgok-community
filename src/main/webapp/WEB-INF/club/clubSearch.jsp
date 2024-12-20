@@ -13,7 +13,6 @@
             data-border-radius="small"></script>
 </head>
 <body class="bg-gray-50 font-[&#39;Noto_Sans_KR&#39;]">
-<jsp:include page="../header.jsp"/>
 
 <main class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <form action="<c:url value='/club/search'/>" method="get">
@@ -77,7 +76,7 @@
                                         <i class="far fa-users mr-2"></i>${club.memberCount}/${club.maxMembers}명
                                     </div>
                                     <div class="mt-4">
-                                        <a href="<c:url value='/club/clubInfo?clubId=${club.clubId}'/>" 
+                                        <a href="<c:url value='/club/clubInfo?clubId=${club.clubId}'/>"
                                            class="w-full bg-custom text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-opacity-90 inline-block text-center">
                                             둘러보기
                                         </a>

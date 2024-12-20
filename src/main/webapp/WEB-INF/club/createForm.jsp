@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,7 +17,6 @@
 </head>
 <body class="bg-gray-50 font-[&#39;Noto_Sans_KR&#39;]">
 <div class="min-h-screen">
-    <!-- 헤더 추가해야 함 -->
 
     <main class="max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
         <div class="space-y-8">
@@ -25,7 +25,8 @@
                 <p class="mt-1 text-sm text-gray-600">모임에 대한 정보를 입력해주세요.</p>
             </div>
 
-            <form action="<c:url value='/club/create'/>" method="POST" enctype="multipart/form-data">
+            <!-- 경로 찾기 실패 -->
+            <form action="<c:url value=''/>" method="POST" enctype="multipart/form-data">
                 <div class="space-y-6">
                     <div class="mb-6"><label class="block text-sm font-medium text-gray-700">모임 대표 사진</label>
                         <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
@@ -36,7 +37,7 @@
                                           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                                 </svg>
                                 <div class="flex text-sm text-gray-600"><label for="file-upload"
-                                                                           class="relative cursor-pointer bg-white rounded-md font-medium text-custom hover:text-custom-dark focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-custom"><span>사진 업로드</span><input
+                                                                               class="relative cursor-pointer bg-white rounded-md font-medium text-custom hover:text-custom-dark focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-custom"><span>사진 업로드</span><input
                                         id="file-upload" name="file-upload" type="file" class="sr-only"
                                         accept="image/*"/></label></div>
                                 <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p></div>
@@ -107,11 +108,11 @@
     document.addEventListener('DOMContentLoaded', function() {
         const checkboxes = document.querySelectorAll('input[type="checkbox"][name="tags"]');
         const warningMessage = document.querySelector('.selected-tags-count');
-        
+
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener('change', function() {
                 const checkedBoxes = document.querySelectorAll('input[type="checkbox"][name="tags"]:checked');
-                
+
                 if (checkedBoxes.length > 2) {
                     this.checked = false;
                     warningMessage.classList.remove('hidden');
@@ -122,5 +123,36 @@
         });
     });
 </script>
+
+<c:if test="${not empty creationFailed}">
+    <div id="creationFailedModal" class="fixed z-10 inset-0 overflow-y-auto">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </div>
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">클럽 생성 실패</h3>
+                            <div class="mt-2">
+                                <p class="text-sm text-gray-500">클럽 생성이 실패했습니다. 다시 시도해 주세요.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm" onclick="document.getElementById('creationFailedModal').style.display='none'">
+                        닫기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</c:if>
 </body>
 </html>

@@ -5,13 +5,13 @@
     // URL 파라미터에서 clubId를 가져옴
     String clubIdStr = request.getParameter("clubId");
     Club club = null;
-    
+
     if (clubIdStr != null && !clubIdStr.isEmpty()) {
         int clubId = Integer.parseInt(clubIdStr);
         ClubDAO clubDAO = new ClubDAO();
         club = clubDAO.showClubDetail(clubId);
     }
-    
+
     // club이 null인 경우를 처리
     if (club == null) {
         response.sendRedirect("/error.jsp"); // 에러 페이지로 리다이렉트
@@ -34,7 +34,6 @@
 </head>
 <body class="bg-gray-50 font-[&#39;Noto_Sans_KR&#39;]">
 <div class="min-h-screen">
-    <jsp:include page="../header.jsp"/>
 
     <main class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="bg-white rounded-lg shadow overflow-hidden">
@@ -63,7 +62,7 @@
                 <div class="flex gap-2 mb-6">
                     <% if (club.getHashtags() != null) {
                         for (String hashtag : club.getHashtags()) { %>
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-custom/10 text-custom">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-custom/10 text-custom">
                                 #<%= hashtag %>
                             </span>
                     <% }
@@ -72,7 +71,7 @@
                 <div class="prose max-w-none">
                     <h2 class="text-2xl font-bold text-gray-900 mb-4"><%= club.getClubName() %></h2>
                     <p class="text-gray-600 mb-6"><%= club.getDescription() %></p>
-                    
+
                     <div class="mb-8">
                         <h3 class="text-xl font-bold text-gray-900 mb-4">모임 정보</h3>
                         <div class="bg-gray-50 p-4 rounded-lg">

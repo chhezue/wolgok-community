@@ -35,7 +35,7 @@ public class CreateClubController implements Controller {
             int clubId = clubDAO.insertClub(club); // 클럽 생성 후 ID 반환
             if (clubId > 0) {
                 log.debug("Create Club : {}", club);
-                request.setAttribute("club", club); // 클럽 객체를 request에 설정
+                request.setAttribute("club", club);
                 return "redirect:/club/clubInfo?clubId=" + clubId; // 생성된 클럽 ID를 포함하여 리다이렉트
             } else {
                 throw new Exception("클럽 생성 실패");

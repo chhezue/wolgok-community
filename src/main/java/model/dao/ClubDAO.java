@@ -159,7 +159,7 @@ public class ClubDAO {
     public List<Club> findClubs(String[] interests, String memberRange, String sortBy) throws SQLException {
         StringBuilder sql = new StringBuilder("SELECT * FROM Club WHERE 1=1");
         List<Object> params = new ArrayList<>();
-        
+
         // 관심사 필터
         if (interests != null && interests.length > 0) {
             sql.append(" AND (");
@@ -170,7 +170,7 @@ public class ClubDAO {
             }
             sql.append(")");
         }
-        
+
         // 멤버 수 범위 필터
         if (memberRange != null) {
             String[] range = memberRange.split("-");
@@ -178,7 +178,7 @@ public class ClubDAO {
             params.add(Integer.parseInt(range[0]));
             params.add(Integer.parseInt(range[1]));
         }
-        
+
         // 정렬 조건
         if (sortBy != null) {
             switch (sortBy) {
@@ -192,7 +192,7 @@ public class ClubDAO {
                     sql.append(" ORDER BY clubId DESC");
             }
         }
-        
+
         return executeQuery(sql.toString(), params.toArray());
     }
 
@@ -201,7 +201,7 @@ public class ClubDAO {
         try {
             jdbcUtil.setSqlAndParameters(sql, params);
             ResultSet rs = jdbcUtil.executeQuery();
-            
+
             while (rs.next()) {
                 Club club = new Club();
                 club.setClubId(rs.getInt("clubId"));
@@ -211,12 +211,12 @@ public class ClubDAO {
                 club.setMaxMembers(rs.getInt("maxMembers"));
                 club.setCreatedAt(rs.getDate("createdAt").toLocalDate());
                 club.setMemberCount(rs.getInt("memberCount"));
-                
+
                 String hashtags = rs.getString("hashtags");
                 if (hashtags != null) {
                     club.setHashtags(Arrays.asList(hashtags.split(",")));
                 }
-                
+
                 clubList.add(club);
             }
         } finally {
