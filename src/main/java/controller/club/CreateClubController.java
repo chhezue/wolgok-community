@@ -32,10 +32,14 @@ public class CreateClubController implements Controller {
         }
 
         try {
-            clubDAO.insertClub(club); // ClubDAO를 통해 클럽 생성 요청
-
-            log.debug("Create Club : {}", club);
-            return "redirect:/club/clubInfo"; // 성공 시 생성된 클럽 정보 페이지로 이동
+            int clubId = clubDAO.insertClub(club); // 클럽 생성 후 ID 반환
+            if (clubId > 0) {
+                log.debug("Create Club : {}", club);
+                request.setAttribute("club", club);
+                return "redirect:/club/clubInfo?clubId=" + clubId; // 생성된 클럽 ID를 포함하여 리다이렉트
+            } else {
+                throw new Exception("클럽 생성 실패");
+            }
 
         } catch (Exception e) { // 예외 발생 시 입력 폼으로 포워딩
             request.setAttribute("creationFailed", true);

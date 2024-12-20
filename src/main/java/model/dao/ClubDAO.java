@@ -6,6 +6,7 @@ import model.domain.Member; // Member 클래스 import 추가
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
+import java.util.Arrays;
 
 public class ClubDAO {
     private JDBCUtil jdbcUtil = new JDBCUtil();
@@ -14,7 +15,7 @@ public class ClubDAO {
     // leader 저장 어떻게 해야 하는지, category 저장 어떻게 해야 하는지 구현
     public int insertClub(Club club) {
         String insertQuery = "INSERT INTO Club (clubName, description, thumbnail, maxMembers, createdAt, hashtags) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?, ?)";
         jdbcUtil.setSql(insertQuery);
         Object[] param = new Object[]{
                 club.getClubName(), club.getDescription(), club.getThumbnail(), club.getMaxMembers(), club.getCreatedAt(),
@@ -23,7 +24,13 @@ public class ClubDAO {
         jdbcUtil.setParameters(param);
 
         try {
-            return jdbcUtil.executeUpdate();
+            int result = jdbcUtil.executeUpdate();
+            if (result > 0) {
+                ResultSet rs = jdbcUtil.getGeneratedKeys();
+                if (rs.next()) {
+                    return rs.getInt(1); // 생성된 클럽 ID 반환
+                }
+            }
         } catch (Exception ex) {
             jdbcUtil.rollback();
             ex.printStackTrace();
@@ -149,22 +156,52 @@ public class ClubDAO {
 
     // 해시태그, 최대 인원을 이용하여 클럽 검색: findClubsController
     // 표시되는 항목: 클럽 이름, 썸네일, 설명, 개설일, 현재 멤버, 최대 멤버
-    public List<Club> findClubs(String interest, int maxMembers) throws SQLException {
-        String sql = "SELECT * FROM Club WHERE maxMembers >= ?";
+    public List<Club> findClubs(String[] interests, String memberRange, String sortBy) throws SQLException {
+        StringBuilder sql = new StringBuilder("SELECT * FROM Club WHERE 1=1");
+        List<Object> params = new ArrayList<>();
 
-        // 해시태그가 주어졌다면 추가 조건을 붙임
-        if (interest != null && !interest.isEmpty()) {
-            sql += " AND hashtags LIKE ?";
+        // 관심사 필터
+        if (interests != null && interests.length > 0) {
+            sql.append(" AND (");
+            for (int i = 0; i < interests.length; i++) {
+                if (i > 0) sql.append(" OR ");
+                sql.append("hashtags LIKE ?");
+                params.add("%" + interests[i] + "%");
+            }
+            sql.append(")");
         }
 
-        sql += " ORDER BY clubId ASC"; // 정렬
+        // 멤버 수 범위 필터
+        if (memberRange != null) {
+            String[] range = memberRange.split("-");
+            sql.append(" AND maxMembers BETWEEN ? AND ?");
+            params.add(Integer.parseInt(range[0]));
+            params.add(Integer.parseInt(range[1]));
+        }
 
-        jdbcUtil.setSqlAndParameters(sql, new Object[] {maxMembers, interest != null ? "%" + interest + "%" : null});
+        // 정렬 조건
+        if (sortBy != null) {
+            switch (sortBy) {
+                case "newest":
+                    sql.append(" ORDER BY createdAt DESC");
+                    break;
+                case "popular":
+                    sql.append(" ORDER BY memberCount DESC");
+                    break;
+                default:
+                    sql.append(" ORDER BY clubId DESC");
+            }
+        }
 
-        List<Club> clubList = new ArrayList<Club>();
+        return executeQuery(sql.toString(), params.toArray());
+    }
 
+    private List<Club> executeQuery(String sql, Object[] params) throws SQLException {
+        List<Club> clubList = new ArrayList<>();
         try {
+            jdbcUtil.setSqlAndParameters(sql, params);
             ResultSet rs = jdbcUtil.executeQuery();
+
             while (rs.next()) {
                 Club club = new Club();
                 club.setClubId(rs.getInt("clubId"));
@@ -175,15 +212,17 @@ public class ClubDAO {
                 club.setCreatedAt(rs.getDate("createdAt").toLocalDate());
                 club.setMemberCount(rs.getInt("memberCount"));
 
-                clubList.add(club); // List에 Club 객체 저장
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            jdbcUtil.close(); // resource 반환
-        }
+                String hashtags = rs.getString("hashtags");
+                if (hashtags != null) {
+                    club.setHashtags(Arrays.asList(hashtags.split(",")));
+                }
 
-        return clubList; // 필터링된 클럽 리스트 반환
+                clubList.add(club);
+            }
+        } finally {
+            jdbcUtil.close();
+        }
+        return clubList;
     }
 
     // 선택한 모임의 상세 정보를 표시: ViewClubController
