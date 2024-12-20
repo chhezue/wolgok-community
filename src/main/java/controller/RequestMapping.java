@@ -7,12 +7,8 @@ import org.slf4j.LoggerFactory;
 
 import controller.member.*;
 import controller.user.DeleteUserController;
-import controller.user.ListUserController;
-import controller.user.LoginController;
-import controller.user.LogoutController;
 import controller.user.RegisterUserController;
 import controller.user.UpdateUserController;
-import controller.user.ViewUserController;
 import controller.comm.*;
 
 public class RequestMapping {
@@ -23,19 +19,10 @@ public class RequestMapping {
 
     public void initMapping() {
     	// 각 uri에 대응되는 controller 객체를 생성 및 저장
-<<<<<<< HEAD
-        mappings.put("/", new ForwardController("/main.jsp"));
-        mappings.put("/user/login/form", new ForwardController("/user/loginForm.jsp"));
-        mappings.put("/user/login", new LoginController());
-        mappings.put("/user/logout", new LogoutController());
-        mappings.put("/user/list", new ListUserController());
-        mappings.put("/user/view", new ViewUserController());
-=======
-        mappings.put("/", new ForwardController("index.jsp"));
+        mappings.put("/", new ForwardController("/main.jsp")); // 시작 페이지
         mappings.put("/member/login/form", new ForwardController("/member/loginForm.jsp"));
         mappings.put("/member/login", new MemberLoginController()); // 로그인 구현
         mappings.put("/member/logout", new MemberLogoutController());
->>>>>>> ye0nuu
         
         // 회원 가입 폼 요청
         mappings.put("/user/register", new RegisterUserController());
