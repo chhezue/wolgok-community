@@ -3,7 +3,9 @@ package model.service;
 import model.dao.MemberDAO;
 import model.domain.Club;
 import model.domain.Member;
+import model.domain.User;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class MemberManager {
@@ -22,6 +24,22 @@ public class MemberManager {
     // 사용자 등록
     public boolean createMember(Member member) {
         return memberDAO.create(member) > 0; // DAO 메서드 호출 후 성공 여부 반환
+    }
+    
+    // 로그인
+    public boolean login(String email, String password)
+            throws SQLException, UserNotFoundException, PasswordMismatchException {
+                int id = findIdByEmail(email);
+                Member member = findMemberById(id);
+
+            if (!member.getPassword().equals(password)) {
+                throw new PasswordMismatchException("비밀번호가 일치하지 않습니다.");
+            }
+            return true;
+        }
+    
+    public int findIdByEmail(String email) {
+        return memberDAO.findIdByEmail(email);
     }
 
     // 사용자 ID로 검색

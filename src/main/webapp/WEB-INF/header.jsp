@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -24,7 +25,7 @@
             </div>
 
             <div class="hidden lg:flex lg:items-center lg:space-x-6">
-                <a href="/mypage" class="text-sm font-medium text-gray-700 hover:text-custom">
+                <a href="/member/myPage.jsp" class="text-sm font-medium text-gray-700 hover:text-custom">
                     <i class="far fa-user mr-2"></i>마이페이지
                 </a>
                 <a href="/my-groups" class="text-sm font-medium text-gray-700 hover:text-custom">
@@ -35,6 +36,7 @@
             </div>
 
             <div class="flex items-center space-x-4">
+<<<<<<< HEAD:src/main/webapp/header.jsp
                 <a href="/login" class="text-sm font-medium text-gray-700 hover:text-custom">
                     로그인
                 </a>
@@ -47,14 +49,37 @@
                     <span class="sr-only">메뉴 열기</span>
                     <i class="fas fa-bars text-xl"></i>
                 </button>
+=======
+        			<c:choose>
+            			<c:when test="${sessionScope.isLoggedIn != null && sessionScope.isLoggedIn == true}">
+                			<!-- 로그인 후 -->
+                			<a href="/wolgok-community/member/logout" class="text-sm font-medium text-gray-700 hover:text-custom">
+                    		로그아웃
+                			</a>
+                			<button type="button" class="lg:hidden inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:text-custom">
+                    			<span class="sr-only">메뉴 열기</span>
+                    			<i class="fas fa-bars text-xl"></i>
+                			</button>
+            			</c:when>
+            			<c:otherwise>
+                			<!-- 로그인 전 -->
+                			<a href="/wolgok-community/member/login/form" class="text-sm font-medium text-gray-700 hover:text-custom">
+                    		로그인
+                			</a>
+                			<a href="/wolgok-community/member/register/form" class="!rounded-button inline-flex items-center justify-center bg-purple-600 px-4 py-2 text-sm font-medium text-white hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
+                    		회원가입
+                			</a>
+            			</c:otherwise>
+        			</c:choose>
+>>>>>>> ye0nuu:src/main/webapp/WEB-INF/header.jsp
             </div>
         </div>
 
         <div class="lg:hidden absolute top-full left-0 w-full bg-white border-t border-gray-200 py-4 px-6 space-y-4 hidden">
-            <a href="/mypage" class="block text-base font-medium text-gray-700 hover:text-custom">
+            <a href="/wolgok-community/member/mypage" class="block text-base font-medium text-gray-700 hover:text-custom">
                 <i class="far fa-user mr-2"></i>마이페이지
             </a>
-            <a href="/my-groups" class="block text-base font-medium text-gray-700 hover:text-custom">
+            <a href="/wolgok-community/member/myclub" class="block text-base font-medium text-gray-700 hover:text-custom">
                 <i class="far fa-calendar-alt mr-2"></i>나의 모임
             </a>
             <a href="/find-groups" class="block text-base font-medium text-purple-600 hover:text-purple-500"><i

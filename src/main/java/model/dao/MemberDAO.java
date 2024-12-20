@@ -6,6 +6,8 @@ import model.domain.Member;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class MemberDAO {
     private JDBCUtil jdbcUtil = null;
@@ -17,20 +19,18 @@ public class MemberDAO {
     // 사용자 등록
     public int create(Member member) {
         int result = 0;
-        String insertQuery = "INSERT INTO Member (memberId, memberName, nickname, phone, email, password, bio, website, profileImageUrl, createAt) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        LocalDateTime today = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(today);
+        
+        String insertQuery = "INSERT INTO Member (memberId, memberName, password, nickname, email, createdAt) " +
+                "VALUES (dbp2024.MemberId_Seq.NEXTVAL, ?, ?, ?, ?, ?)";
 
         Object[] params = new Object[]{
-                member.getMemberId(),
                 member.getMemberName(),
-                member.getNickname(),
-                member.getPhone(),
-                member.getEmail(),
                 member.getPassword(),
-                member.getBio(),
-                member.getWebsite(),
-                member.getProfileImageUrl(),
-                member.getCreatedAt()
+                member.getNickname(),
+                member.getEmail(),
+                timestamp
         };
 
         jdbcUtil.setSql(insertQuery);
@@ -41,6 +41,7 @@ public class MemberDAO {
             System.out.println(member.getMemberId() + " 사용자 정보가 삽입되었습니다.");
         } catch (SQLException ex) {
             System.out.println("입력 오류 발생");
+            ex.printStackTrace();
             if (ex.getErrorCode() == 1) {
                 System.out.println("동일한 사용자 정보가 이미 존재합니다.");
             }
@@ -52,6 +53,28 @@ public class MemberDAO {
         }
 
         return result;
+    }
+    
+    // email로 사용자ID 검색 (로그인)
+    public int findIdByEmail(String email) {
+        String selectQuery = "SELECT memberId FROM Member WHERE email = ?";
+        int id = 0;
+
+        jdbcUtil.setSql(selectQuery);
+        jdbcUtil.setParameters(new Object[]{email});
+
+        try {
+            ResultSet rs = jdbcUtil.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("memberId");
+            }
+        } catch (SQLException e) {
+            System.out.println("사용자 검색 오류 발생");
+            e.printStackTrace();
+        } finally {
+            jdbcUtil.close();
+        }
+        return id;
     }
 
     // memberId로 사용자 검색
