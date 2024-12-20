@@ -6,7 +6,6 @@ import model.domain.Member;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class MemberDAO {
@@ -21,7 +20,7 @@ public class MemberDAO {
         int result = 0;
         LocalDateTime today = LocalDateTime.now();
         Timestamp timestamp = Timestamp.valueOf(today);
-        
+
         String insertQuery = "INSERT INTO Member (memberId, memberName, password, nickname, email, createdAt) " +
                 "VALUES (dbp2024.MemberId_Seq.NEXTVAL, ?, ?, ?, ?, ?)";
 
@@ -54,7 +53,7 @@ public class MemberDAO {
 
         return result;
     }
-    
+
     // email로 사용자ID 검색 (로그인)
     public int findIdByEmail(String email) {
         String selectQuery = "SELECT memberId FROM Member WHERE email = ?";
@@ -164,35 +163,35 @@ public class MemberDAO {
 
         return result;
     }
-    
+
     // 사용자 정보 업데이트
     public boolean update(Member member) {
         String updateQuery = "UPDATE Member SET memberName = ?, nickname = ?, email = ? WHERE memberId = ?";
-        
+
         jdbcUtil.setSql(updateQuery);
         jdbcUtil.setParameters(new Object[]{member.getMemberName(), member.getNickname(), member.getEmail(), member.getMemberId()});
-        
+
         try {
             int rowsAffected = jdbcUtil.executeUpdate();
-            
+
             if (rowsAffected > 0) {
                 System.out.println(member.getMemberId() + " 사용자 정보가 수정되었습니다.");
                 return true;
             } else {
                 System.out.println("수정할 사용자 정보가 없습니다.");
-                return false; 
+                return false;
             }
         } catch (Exception e) {
-            System.out.println("사용자 삭제 오류 발생");
+            System.out.println("사용자 삭제 오��� 발생");
             e.printStackTrace();
         } finally {
             jdbcUtil.commit();
             jdbcUtil.close();
         }
-        
+
         return true;
     }
-    
+
     // 닉네임 중복 여부 확인
     public boolean isNickNameExists(String nickname) {
         String query = "SELECT COUNT(*) FROM Member WHERE nickName = ?";
@@ -230,8 +229,8 @@ public class MemberDAO {
         }
         return false;
     }
-    
-    
+
+
     // 클럽 가입
     @SuppressWarnings("unchecked")
     public boolean joinClub(int clubId, int memberId) {
@@ -294,7 +293,7 @@ public class MemberDAO {
             String updateClubQuery = "UPDATE Club SET members = ? WHERE clubId = ?";
             jdbcUtil.setSql(updateClubQuery);
             jdbcUtil.setParameters(new Object[]{currentMembers, clubId});
-            jdbcUtil.executeUpdate(); 
+            jdbcUtil.executeUpdate();
 
             // Member 테이블의 joinedClubIds에 클럽 ID 추가
             joinedClubIds.add(clubId);
@@ -312,8 +311,8 @@ public class MemberDAO {
         return false; // 실패 시 false 반환
     }
 
-    
-    
+
+
     // 회원이 가입한 클럽 조회
     @SuppressWarnings("unchecked")
     public List<Club> findJoinedClubs(int memberId) {
@@ -368,8 +367,8 @@ public class MemberDAO {
 
         return joinedClubs;
     }
-    
-    
+
+
     // 만든 클럽 조회
     public List<Club> findCreatedClubs(int memberId) {
         // Club 테이블의 leader(Member) 필드에서 memberId를 이용해 클럽 ID 조회
@@ -391,7 +390,7 @@ public class MemberDAO {
         }
 
 
-     // Club 테이블에서 클럽 리스트 조회
+        // Club 테이블에서 클럽 리스트 조회
         List<Club> createdClubs = new ArrayList<>();
         if (!createdClubIds.isEmpty()) {
             StringBuilder clubQuery = new StringBuilder("SELECT * FROM Club WHERE clubId IN (");
@@ -424,5 +423,65 @@ public class MemberDAO {
             }
         }
         return createdClubs;
+    }
+
+    @SuppressWarnings("unchecked")
+    public boolean leaveClub(int clubId, int memberId) {
+        // Club 테이블에서 현재 members 리스트 조회
+        String fetchClubQuery = "SELECT members FROM Club WHERE clubId = ?";
+        jdbcUtil.setSql(fetchClubQuery);
+        jdbcUtil.setParameters(new Object[]{clubId});
+
+        List<Member> currentMembers = new ArrayList<>();
+        try {
+            ResultSet rs = jdbcUtil.executeQuery();
+            if (rs.next()) {
+                currentMembers = (List<Member>) rs.getObject("members");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        // Member 테이블에서 joinedClubIds 조회
+        String fetchMemberQuery = "SELECT joinedClubIds FROM Member WHERE memberId = ?";
+        jdbcUtil.setSql(fetchMemberQuery);
+        jdbcUtil.setParameters(new Object[]{memberId});
+
+        List<Integer> joinedClubIds = new ArrayList<>();
+        try {
+            ResultSet rs = jdbcUtil.executeQuery();
+            if (rs.next()) {
+                joinedClubIds = (List<Integer>) rs.getObject("joinedClubIds");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        try {
+            // 클럽의 멤버 리스트에서 해당 멤버 제거
+            currentMembers.removeIf(member -> member.getMemberId() == memberId);
+            String updateClubQuery = "UPDATE Club SET members = ? WHERE clubId = ?";
+            jdbcUtil.setSql(updateClubQuery);
+            jdbcUtil.setParameters(new Object[]{currentMembers, clubId});
+            jdbcUtil.executeUpdate();
+
+            // Member의 joinedClubIds에서 해당 클럽 ID 제거
+            joinedClubIds.remove(Integer.valueOf(clubId));
+            String updateMemberQuery = "UPDATE Member SET joinedClubIds = ? WHERE memberId = ?";
+            jdbcUtil.setSql(updateMemberQuery);
+            jdbcUtil.setParameters(new Object[]{joinedClubIds, memberId});
+            jdbcUtil.executeUpdate();
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            jdbcUtil.rollback();
+        } finally {
+            jdbcUtil.commit();
+            jdbcUtil.close();
+        }
+        return false;
     }
 }

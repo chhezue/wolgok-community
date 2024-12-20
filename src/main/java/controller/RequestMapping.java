@@ -2,7 +2,6 @@ package controller;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +39,7 @@ public class RequestMapping {
         mappings.put("/club/create", new CreateClubController());
         mappings.put("/club/create/form", new ForwardController("/club/createForm.jsp"));
         mappings.put("/club/join", new JoinClubController());
+        mappings.put("/club/leave", new LeaveClubController());
     }
 
     public Controller findController(String uri) {
