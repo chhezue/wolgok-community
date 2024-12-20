@@ -14,7 +14,7 @@
 </head>
 <body class="bg-gray-50 font-[&#39;Noto_Sans_KR&#39;]">
 <div class="min-h-screen">
-    <jsp:include page="header.jsp"/>
+    <!-- 헤더 추가해야 함 -->
 
     <main class="max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
         <div class="space-y-8">
