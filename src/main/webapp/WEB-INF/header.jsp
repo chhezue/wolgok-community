@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko"><head>
     <meta charset="UTF-8"/>
@@ -31,16 +32,27 @@
             </div>
 
             <div class="flex items-center space-x-4">
-                <a href="/login" class="text-sm font-medium text-gray-700 hover:text-custom">
-                    로그인
-                </a>
-                <a href="/signup" class="!rounded-button inline-flex items-center justify-center bg-purple-600 px-4 py-2 text-sm font-medium text-white hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
-                    회원가입
-                </a>
-                <button type="button" class="lg:hidden inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:text-custom">
-                    <span class="sr-only">메뉴 열기</span>
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
+        			<c:choose>
+            			<c:when test="${sessionScope.isLoggedIn != null && sessionScope.isLoggedIn == true}">
+                			<!-- 로그인 후 -->
+                			<a href="/wolgok-community/member/logout" class="text-sm font-medium text-gray-700 hover:text-custom">
+                    		로그아웃
+                			</a>
+                			<button type="button" class="lg:hidden inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:text-custom">
+                    			<span class="sr-only">메뉴 열기</span>
+                    			<i class="fas fa-bars text-xl"></i>
+                			</button>
+            			</c:when>
+            			<c:otherwise>
+                			<!-- 로그인 전 -->
+                			<a href="/wolgok-community/member/login/form" class="text-sm font-medium text-gray-700 hover:text-custom">
+                    		로그인
+                			</a>
+                			<a href="/wolgok-community/member/register/form" class="!rounded-button inline-flex items-center justify-center bg-purple-600 px-4 py-2 text-sm font-medium text-white hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
+                    		회원가입
+                			</a>
+            			</c:otherwise>
+        			</c:choose>
             </div>
         </div>
 

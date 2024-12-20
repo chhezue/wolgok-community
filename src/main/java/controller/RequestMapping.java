@@ -24,14 +24,11 @@ public class RequestMapping {
     public void initMapping() {
     	// 각 uri에 대응되는 controller 객체를 생성 및 저장
         mappings.put("/", new ForwardController("index.jsp"));
-        mappings.put("/user/login/form", new ForwardController("/user/loginForm.jsp"));
-        mappings.put("/user/login", new LoginController());
-        mappings.put("/user/logout", new LogoutController());
-        mappings.put("/user/list", new ListUserController());
-        mappings.put("/user/view", new ViewUserController());
+        mappings.put("/member/login/form", new ForwardController("/member/loginForm.jsp"));
+        mappings.put("/member/login", new MemberLoginController()); // 로그인 구현
+        mappings.put("/member/logout", new MemberLogoutController());
         
-        // 회원 가입 폼 요청과 가입 요청 처리 병합 (폼에 커뮤니티 선택 메뉴 추가를 위함)
-//      mappings.put("/user/register/form", new ForwardController("/user/registerForm.jsp"));
+        // 회원 가입 폼 요청
         mappings.put("/user/register", new RegisterUserController());
 
         // 사용자 정보 수정 폼 요청과 수정 요청 처리 병합
@@ -48,12 +45,13 @@ public class RequestMapping {
         mappings.put("/community/update", new UpdateCommunityController());
 
         //김세령 매핑 추가
+        mappings.put("/member/register/form", new ForwardController("/member/registerForm.jsp")); // 사용자 등록
         mappings.put("/member/register", new RegisterMemberController()); // 사용자 등록
         mappings.put("/member/findInfo", new FindInfoController());       // 아이디 및 비밀번호 찾기
         mappings.put("/member/delete", new DeleteMemberController());   //사용자 계정 삭제
         
-        // member 등록 및 로그인 매핑 추가
-        
+        // 메인화면 매핑
+        mappings.put("/main", new ForwardController("/main.jsp"));
         
         // member 매핑 추가
         mappings.put("/wolgok-community/member/mypage", new ForwardController("/member/myPage.jsp")); // main 메뉴에서 마이페이지로 이동

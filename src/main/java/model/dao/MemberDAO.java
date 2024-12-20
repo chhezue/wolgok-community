@@ -22,8 +22,8 @@ public class MemberDAO {
         LocalDateTime today = LocalDateTime.now();
         Timestamp timestamp = Timestamp.valueOf(today);
         
-        String insertQuery = "INSERT INTO Member (memberName, password, nickname, email, createAt) " +
-                "VALUES (?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO Member (memberId, memberName, password, nickname, email, createdAt) " +
+                "VALUES (dbp2024.MemberId_Seq.NEXTVAL, ?, ?, ?, ?, ?)";
 
         Object[] params = new Object[]{
                 member.getMemberName(),
@@ -53,6 +53,28 @@ public class MemberDAO {
         }
 
         return result;
+    }
+    
+    // email로 사용자ID 검색 (로그인)
+    public int findIdByEmail(String email) {
+        String selectQuery = "SELECT memberId FROM Member WHERE email = ?";
+        int id = 0;
+
+        jdbcUtil.setSql(selectQuery);
+        jdbcUtil.setParameters(new Object[]{email});
+
+        try {
+            ResultSet rs = jdbcUtil.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("memberId");
+            }
+        } catch (SQLException e) {
+            System.out.println("사용자 검색 오류 발생");
+            e.printStackTrace();
+        } finally {
+            jdbcUtil.close();
+        }
+        return id;
     }
 
     // memberId로 사용자 검색
