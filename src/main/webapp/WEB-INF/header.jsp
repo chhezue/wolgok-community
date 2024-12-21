@@ -25,10 +25,10 @@
             </div>
 
             <div class="hidden lg:flex lg:items-center lg:space-x-6">
-                <a href="<c:url value='/member/mypage' />" class="text-sm font-medium text-gray-700 hover:text-custom">
+                <a href="<c:url value="/member/mypage" />" class="text-sm font-medium text-gray-700 hover:text-custom">
                     <i class="far fa-user mr-2"></i>마이페이지
                 </a>
-                <a href="<c:url value='/member/myclub' />" class="text-sm font-medium text-gray-700 hover:text-custom">
+                <a href="<c:url value="/member/myclub" />" class="text-sm font-medium text-gray-700 hover:text-custom">
                     <i class="far fa-calendar-alt mr-2"></i>나의 모임
                 </a>
                 <a href="/find-groups" class="text-sm font-medium text-purple-600 hover:text-purple-500"><i
