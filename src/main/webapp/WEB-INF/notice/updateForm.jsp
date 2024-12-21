@@ -13,7 +13,11 @@
             data-border-radius="small"></script>
 </head>
 <body class="bg-gray-50 font-[&#39;Noto_Sans_KR&#39;]">
+<<<<<<< HEAD
 <jsp:include page="header.jsp"/>
+=======
+<jsp:include page="../header.jsp"/>
+>>>>>>> ye0nuu
 
 <main class="max-w-8xl mx-auto py-6 sm:px-6 lg:px-8">
     <div class="px-4 py-6 sm:px-0"><h1 class="text-2xl font-bold mb-4">공지사항 수정</h1>

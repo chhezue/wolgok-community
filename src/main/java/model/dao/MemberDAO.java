@@ -20,15 +20,24 @@ public class MemberDAO {
         int result = 0;
         LocalDateTime today = LocalDateTime.now();
         Timestamp timestamp = Timestamp.valueOf(today);
+<<<<<<< HEAD
 
         String insertQuery = "INSERT INTO Member (memberId, memberName, password, nickname, email, createdAt) " +
                 "VALUES (dbp2024.MemberId_Seq.NEXTVAL, ?, ?, ?, ?, ?)";
+=======
+        String insertQuery = "INSERT INTO Member (memberId, memberName, nickname, password, email, phone, bio, profileImageUrl, website, createdAt) " +
+                "VALUES (dbp2024.MemberId_Seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+>>>>>>> ye0nuu
 
         Object[] params = new Object[]{
                 member.getMemberName(),
-                member.getPassword(),
                 member.getNickname(),
+                member.getPassword(),
                 member.getEmail(),
+                member.getPhone(),
+                member.getBio(),
+                member.getProfileImageUrl(),
+                member.getWebsite(),
                 timestamp
         };
 
@@ -166,11 +175,19 @@ public class MemberDAO {
 
     // 사용자 정보 업데이트
     public boolean update(Member member) {
+<<<<<<< HEAD
         String updateQuery = "UPDATE Member SET memberName = ?, nickname = ?, email = ? WHERE memberId = ?";
 
         jdbcUtil.setSql(updateQuery);
         jdbcUtil.setParameters(new Object[]{member.getMemberName(), member.getNickname(), member.getEmail(), member.getMemberId()});
 
+=======
+        String updateQuery = "UPDATE Member SET memberName = ?, phone = ?, bio = ?, website = ? WHERE memberId = ?";
+        
+        jdbcUtil.setSql(updateQuery);
+        jdbcUtil.setParameters(new Object[]{member.getMemberName(), member.getPhone(), member.getBio(), member.getWebsite(), member.getMemberId()});
+        
+>>>>>>> ye0nuu
         try {
             int rowsAffected = jdbcUtil.executeUpdate();
 
@@ -314,7 +331,6 @@ public class MemberDAO {
 
 
     // 회원이 가입한 클럽 조회
-    @SuppressWarnings("unchecked")
     public List<Club> findJoinedClubs(int memberId) {
         // Member 테이블에서 joinedClubIds 조회
         String memberQuery = "SELECT joinedClubIds FROM Member WHERE memberId = ?";

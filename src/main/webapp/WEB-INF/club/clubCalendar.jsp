@@ -13,7 +13,11 @@
             data-border-radius="small"></script>
 </head>
 <body class="bg-gray-50 font-sans">
+<<<<<<< HEAD
 <jsp:include page="header.jsp" />
+=======
+<jsp:include page="../header.jsp" />
+>>>>>>> ye0nuu
 
 <div class="min-h-screen">
     <nav class="bg-white shadow">
