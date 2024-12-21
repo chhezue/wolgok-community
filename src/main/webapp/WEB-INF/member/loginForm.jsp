@@ -1,4 +1,5 @@
-<<<<<<< HEAD
+<%@page contentType="text/html; charset=utf-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -18,7 +19,7 @@
     </div>
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form class="space-y-6" action="#" method="POST">
+            <form class="space-y-6" action="<c:url value='/member/login' />" method="POST">
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700">이메일</label>
                     <div class="mt-1 relative">
@@ -47,6 +48,10 @@
                             class="w-full flex justify-center py-2 px-4 border border-transparent !rounded-button shadow-sm text-sm font-medium text-white bg-custom hover:bg-custom/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom">
                         로그인
                     </button>
+                    <!-- 로그인이 실패한 경우 exception 객체에 저장된 오류 메시지를 출력 -->
+        			<c:if test="${loginFailed}">
+	  	  				<br><font color="red"><c:out value="다시 시도하세요." /></font><br>
+	    			</c:if>
                 </div>
             </form>
             <div class="mt-6">
@@ -61,92 +66,10 @@
                 <div class="mt-6 text-center">
                     <p class="text-sm text-gray-600">
                         아직 회원이 아니신가요?
-                        <a href="#" class="font-medium text-custom hover:text-custom/90">회원가입</a>
+                        <a href="<c:url value='/member/register/form' />" class="font-medium text-custom hover:text-custom/90">회원가입</a>
                     </p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-=======
-<%@page contentType="text/html; charset=utf-8" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<html>
-<head>
-<title>로그인</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel=stylesheet href="<c:url value='/css/user.css' />" type="text/css">
-<script>
-function login() {
-	if (form.email.value == "") {
-		alert("사용자 ID를 입력하십시오.");
-		form.email.focus();
-		return false;
-	} 
-	if (form.password.value == "") {
-		alert("비밀번호를 입력하십시오.");
-		form.password.focus();
-		return false;
-	}		
-	form.submit();
-}
-
-function memberCreate(targetUri) {
-	form.action = targetUri;
-	form.method="GET";		// register form 요청
-	form.submit();
-}
-</script>
-</head>
-<body>
-<br>
-<!-- login form  -->
-<form name="form" method="POST" action="<c:url value='/member/login' />">
-  <table style="width:100%">
-	<tr>
-	  <td width="20"></td>
-	  <td>
-	  	<b>Wolgok-Community</b><br><br>
-	   	<table>
-	   	  <tr>
-		    <td class="title">&nbsp;&nbsp;로그인&nbsp;&nbsp;</td>
-		  </tr>
-	    </table>  
-		
-	    <!-- 로그인이 실패한 경우 exception 객체에 저장된 오류 메시지를 출력 -->
-        <c:if test="${loginFailed}">
-	  	  <br><font color="red"><c:out value="${exception.getMessage()}" /></font><br>
-	    </c:if>
-	    <br>	  
-	    <table style="background-color: YellowGreen">
-	  	  <tr height="40">
-			<td width="150" align="center" bgcolor="E6ECDE">사용자 ID(이메일)</td>
-			<td width="250" bgcolor="ffffff" style="padding-left:10">
-				<input type="text" style="width:240" name="email">
-			</td>
-		  </tr>
-	  	  <tr height="40">
-			<td width="150" align="center" bgcolor="E6ECDE">비밀번호</td>
-			<td width="250" bgcolor="ffffff" style="padding-left:10">
-				<input type="password" style="width:240" name="password">
-			</td>
-		  </tr>
-	    </table>
-	    <br>	  
-	    <table style="width:100%">
-		  <tr>
-			<td align=left>
-			<input type="button" value="로그인" onClick="login()"> &nbsp;
-			<input type="button" value="회원가입" onClick="memberCreate('../register/form')">
-			</td>						
-		  </tr>
-		  <tr height="40"><td>(관리자 로그인: admin/admin)</td></tr>
-	    </table>
-	  </td>	  
-	</tr>
-  </table>  
-</form>
-</body>
-</html>
->>>>>>> ye0nuu

@@ -21,14 +21,18 @@ public class MemberDAO {
         LocalDateTime today = LocalDateTime.now();
         Timestamp timestamp = Timestamp.valueOf(today);
 
-        String insertQuery = "INSERT INTO Member (memberId, memberName, password, nickname, email, createdAt) " +
-                "VALUES (dbp2024.MemberId_Seq.NEXTVAL, ?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO Member (memberId, memberName, nickname, password, email, phone, bio, profileImageUrl, website, createdAt) " +
+                "VALUES (dbp2024.MemberId_Seq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         Object[] params = new Object[]{
                 member.getMemberName(),
-                member.getPassword(),
                 member.getNickname(),
+                member.getPassword(),
                 member.getEmail(),
+                member.getPhone(),
+                member.getBio(),
+                member.getProfileImageUrl(),
+                member.getWebsite(),
                 timestamp
         };
 

@@ -26,7 +26,7 @@ public class RequestMapping {
         mappings.put("/member/register/form", new ForwardController("/member/registerForm.jsp"));
         mappings.put("/member/register", new RegisterMemberController()); // 사용자 등록
         mappings.put("/member/delete", new DeleteMemberController());   //사용자 계정 삭제
-        mappings.put("/member/mypage", new ForwardController("/member/myPage.jsp"));
+        mappings.put("/member/mypage", new ViewMemberController());
         mappings.put("/member/myclub", new ForwardController("/member/myClub.jsp"));
 
         // 클럽 관련 매핑

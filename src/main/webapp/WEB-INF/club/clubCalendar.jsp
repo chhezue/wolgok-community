@@ -13,7 +13,7 @@
             data-border-radius="small"></script>
 </head>
 <body class="bg-gray-50 font-sans">
-<jsp:include page="header.jsp" />
+<jsp:include page="../header.jsp" />
 
 <div class="min-h-screen">
     <nav class="bg-white shadow">

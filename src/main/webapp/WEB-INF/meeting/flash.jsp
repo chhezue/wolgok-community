@@ -13,7 +13,7 @@
             data-border-radius="small"></script>
 </head>
 <body class="bg-gray-50 font-sans">
-<jsp:include page="header.jsp"/>
+<jsp:include page="../header.jsp"/>
 
 <main class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="bg-white rounded-lg shadow overflow-hidden">
