@@ -25,8 +25,9 @@ public class RequestMapping {
         mappings.put("/member/logout", new MemberLogoutController());
         mappings.put("/member/register/form", new ForwardController("/member/registerForm.jsp"));
         mappings.put("/member/register", new RegisterMemberController()); // 사용자 등록
-        mappings.put("/member/delete", new DeleteMemberController());   //사용자 계정 삭제
-        mappings.put("/member/mypage", new ViewMemberController());
+        mappings.put("/member/delete", new DeleteMemberController());   //  사용자 계정 삭제
+        mappings.put("/member/update", new UpdateMemberController());   // 사용자 정보 수정
+        mappings.put("/member/mypage", new ViewMemberController());     // 마이페이지에 사용자 정보 출력
         mappings.put("/member/myclub", new ForwardController("/member/myClub.jsp"));
 
         // 클럽 관련 매핑

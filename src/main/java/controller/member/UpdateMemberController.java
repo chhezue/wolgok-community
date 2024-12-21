@@ -4,6 +4,7 @@ import model.service.MemberManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,27 +32,39 @@ public class UpdateMemberController implements Controller {
         }   
         
         // POST 요청 처리 - 수정된 사용자 정보 받아오기
-        int memberId = Integer.parseInt(request.getParameter("memberId"));
+        HttpSession session = request.getSession();
+        Integer memberId = (Integer) session.getAttribute(MemberSessionUtils.MEMBER_SESSION_KEY);
+        int id = memberId.intValue();
+        
         String name = request.getParameter("name");
-        String email = request.getParameter("email");
+        String nickname = request.getParameter("nickname");
+        String phone = request.getParameter("phone");
+        String bio = request.getParameter("bio");
+        String website = request.getParameter("website");
+//        String profileImg = request.getParameter("profileImageUrl");
         
         // 사용자 정보 업데이트
         Member updateMember = new Member();
-        updateMember.setMemberId(memberId);
+        updateMember.setMemberId(id);
         updateMember.setMemberName(name);
-        updateMember.setEmail(email);
+        updateMember.setNickname(nickname);
+        updateMember.setPhone(phone);
+        updateMember.setBio(bio);
+        updateMember.setWebsite(website);
 
         log.debug("Update Member : {}", updateMember);
+
+        System.out.println("Updating Member: " + updateMember);
 
         boolean isUpdated = manager.updateMember(updateMember);
         
         if (isUpdated) {
             // 수정 성공 시 사용자 정보 화면으로 리다이렉트
-            return "redirect:/member/view?memberId=" + memberId;
+            return "redirect:/main";
         } else {
             // 수정 실패 시 수정 폼으로 돌아가기
             request.setAttribute("errorMessage", "정보 수정에 실패했습니다.");
-            return "/member/myPage.jsp.jsp";
+            return "redirect:/member/mypage";
         }
     }
 

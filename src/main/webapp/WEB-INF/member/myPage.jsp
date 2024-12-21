@@ -84,10 +84,14 @@
             			</div>
             		</div>
             		<div class="p-6">
-            		<form class="space-y-6">
+            		<form class="space-y-6" action="<c:url value="/member/update" />" method="POST">
             			<div>
             				<label for="name" class="block text-sm font-medium text-gray-700">이름</label>
             				<input type="text" id="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-custom focus:ring-custom sm:text-sm" value="${member.memberName}"/>
+            			</div>
+            			<div>
+            				<label for="nickname" class="block text-sm font-medium text-gray-700">닉네임</label>
+            				<input type="text" id="nickname" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-custom focus:ring-custom sm:text-sm" value="${member.nickname}"/>
             			</div>
             			<div class="mb-6">
             				<label for="phone" class="block text-sm font-medium text-gray-700">전화번호</label>
@@ -105,7 +109,7 @@
             				<label for="profile-photo" class="block text-sm font-medium text-gray-700">프로필 사진</label>
             				<div class="mt-2 flex items-center">
             					<img src="${member.profileImageUrl}" alt="현재 프로필 사진" class="h-12 w-12 rounded-full"/>
-            					<button class="ml-4 px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-700 hover:border-custom hover:text-custom">사진 변경</button>
+            					<button type="button" class="ml-4 px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-700 hover:border-custom hover:text-custom">사진 변경</button>
             				</div>
             			</div>
             			<div class="flex justify-end items-center space-x-4 mt-6">

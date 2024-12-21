@@ -170,10 +170,18 @@ public class MemberDAO {
 
     // 사용자 정보 업데이트
     public boolean update(Member member) {
-        String updateQuery = "UPDATE Member SET memberName = ?, nickname = ?, email = ? WHERE memberId = ?";
+        String updateQuery = "UPDATE Member SET memberName = ?, nickname = ?, phone = ?, bio = ?, website = ? WHERE memberId = ?";
 
         jdbcUtil.setSql(updateQuery);
-        jdbcUtil.setParameters(new Object[]{member.getMemberName(), member.getNickname(), member.getEmail(), member.getMemberId()});
+        jdbcUtil.setParameters(
+                new Object[]{
+                        member.getMemberName(), 
+                        member.getNickname(), 
+                        member.getPhone(),
+                        member.getBio(),
+                        member.getWebsite(),
+                        member.getMemberId()
+                        });
 
         try {
             int rowsAffected = jdbcUtil.executeUpdate();
@@ -186,7 +194,7 @@ public class MemberDAO {
                 return false;
             }
         } catch (Exception e) {
-            System.out.println("사용자 삭제 오��� 발생");
+            System.out.println("사용자 삭제 오류 발생");
             e.printStackTrace();
         } finally {
             jdbcUtil.commit();
