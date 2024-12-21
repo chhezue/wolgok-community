@@ -1,10 +1,6 @@
 <<<<<<< HEAD
 =======
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<<<<<<< HEAD
->>>>>>> ye0nuu
-=======
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 >>>>>>> ye0nuu
 <!DOCTYPE html>
 <html lang="ko">
@@ -93,8 +89,8 @@
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
                             <div class="flex items-center space-x-4">
-                                <img class="h-8 w-8 rounded-full" src="" alt="프로필"/>
-                                <span class="text-gray-700">님</span>
+                                <img class="h-8 w-8 rounded-full" src="<%=  %>" alt="프로필"/>
+                                <span class="text-gray-700"><%=  %>님</span>
                             </div>
 >>>>>>> ye0nuu
                         </div>
@@ -221,17 +217,17 @@
                         <div class="p-6">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-lg font-semibold text-gray-900">${group.clubName}</h3>
-                                <span class="px-3 py-1  text-white text-sm rounded-full">모임장/일반멤버</span>
+                                <span class="px-3 py-1 <%=  %> text-white text-sm rounded-full">모임장/일반멤버</span>
                             </div>
                             <div class="space-y-2 mb-4">
                                 <p class="text-sm text-gray-600"><i class="fas fa-users mr-2"></i>멤버 ${group.members.length}명</p>
                                 <p class="text-sm text-gray-600"><i class="fas fa-calendar mr-2"></i>개설일: ${group.createdAt}</p>
                             </div>
                             <div class="border-t pt-4">
-                                <p class="text-sm text-gray-600 mb-4">최근 정모 일정: </p>
+                                <p class="text-sm text-gray-600 mb-4">최근 정모 일정: <%=  %></p>
                                 <div class="flex space-x-3">
                                     <button class="flex-1 bg-custom text-white py-2 !rounded-button hover:bg-custom/90">입장하기</button>
-                                    <button class="flex-1 text-gray-700 py-2 !rounded-button hover:bg-gray-200">탈퇴하기</button>
+                                    <button class="flex-1 <%=  %> text-gray-700 py-2 !rounded-button hover:bg-gray-200">탈퇴하기</button>
                                 </div>
                             </div>
                         </div>

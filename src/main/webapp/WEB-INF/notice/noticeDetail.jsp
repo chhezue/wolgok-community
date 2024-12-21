@@ -12,11 +12,7 @@
             data-border-radius="small"></script>
 </head>
 <body class="bg-gray-50 font-[Noto Sans KR]">
-<<<<<<< HEAD
 <jsp:include page="header.jsp"/>
-=======
-<jsp:include page="../header.jsp"/>
->>>>>>> ye0nuu
 
 <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <article class="bg-white shadow rounded-lg overflow-hidden">
