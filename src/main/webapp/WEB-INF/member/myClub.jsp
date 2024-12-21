@@ -15,7 +15,7 @@
 </head>
 <body class="bg-gray-50 font-[Noto Sans KR]">
 <div class="min-h-screen">
-    <jsp:include page="../header.jsp"/>
+    <jsp:include page="./header.jsp"/>
 
     <main class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="mb-8">
