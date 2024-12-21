@@ -87,23 +87,23 @@
             		<form class="space-y-6" action="<c:url value="/member/update" />" method="POST">
             			<div>
             				<label for="name" class="block text-sm font-medium text-gray-700">이름</label>
-            				<input type="text" id="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-custom focus:ring-custom sm:text-sm" value="${member.memberName}"/>
+            				<input type="text" id="name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-custom focus:ring-custom sm:text-sm" value="${member.memberName}"/>
             			</div>
             			<div>
             				<label for="nickname" class="block text-sm font-medium text-gray-700">닉네임</label>
-            				<input type="text" id="nickname" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-custom focus:ring-custom sm:text-sm" value="${member.nickname}"/>
+            				<input type="text" id="nickname" name="nickname" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-custom focus:ring-custom sm:text-sm" value="${member.nickname}"/>
             			</div>
             			<div class="mb-6">
             				<label for="phone" class="block text-sm font-medium text-gray-700">전화번호</label>
-            				<input type="tel" id="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-custom focus:ring-custom sm:text-sm" value="${member.phone}"/>
+            				<input type="tel" id="phone" name="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-custom focus:ring-custom sm:text-sm" value="${member.phone}"/>
             			</div>
             			<div>
             				<label for="bio" class="block text-sm font-medium text-gray-700">소개</label>
-            				<textarea id="bio" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-custom focus:ring-custom sm:text-sm">${member.bio}</textarea>
+            				<textarea id="bio" rows="3" name="bio" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-custom focus:ring-custom sm:text-sm">${member.bio}</textarea>
             			</div>
             			<div>
             				<label for="website" class="block text-sm font-medium text-gray-700">웹사이트</label>
-            				<input type="url" id="website" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-custom focus:ring-custom sm:text-sm" value="${member.website}"/>
+            				<input type="url" id="website" name="website" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-custom focus:ring-custom sm:text-sm" value="${member.website}"/>
             			</div>
             			<div>
             				<label for="profile-photo" class="block text-sm font-medium text-gray-700">프로필 사진</label>

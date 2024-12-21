@@ -58,7 +58,7 @@ public class UpdateMemberController implements Controller {
         boolean isUpdated = manager.updateMember(updateMember);
         
         if (isUpdated) {
-            // 수정 성공 시 사용자 정보 화면으로 리다이렉트
+            // 수정 성공 시 메인 화면으로 리다이렉트
             return "redirect:/main";
         } else {
             // 수정 실패 시 수정 폼으로 돌아가기
