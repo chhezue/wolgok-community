@@ -5,6 +5,7 @@ import controller.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class DeleteMemberController implements Controller {
     private MemberManager memberManager;
@@ -15,16 +16,19 @@ public class DeleteMemberController implements Controller {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String memberId = request.getParameter("memberId");
+        HttpSession session = request.getSession();
+        Integer memberId = (Integer) session.getAttribute(MemberSessionUtils.MEMBER_SESSION_KEY);
 
-        boolean success = memberManager.deleteMember(Integer.parseInt(memberId));
+        int id = memberId.intValue();
+
+        boolean success = memberManager.deleteMember(id);
 
         if (success) {
             request.setAttribute("message", "사용자 삭제 성공");
-            return "/member/deleteSuccess.jsp"; // Forwarding
+            return "redirect:/member/logout";
         } else {
             request.setAttribute("error", "사용자 삭제 실패");
-            return "/member/deleteFail.jsp"; // Forwarding
+            return "redirect:/member/mypage";
         }
     }
 }

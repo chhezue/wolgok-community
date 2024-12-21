@@ -121,4 +121,14 @@
             </div>
         </div>
     </main>
-</body></html>
+</body>
+<script>
+    document.getElementById("delete-account-btn").addEventListener("click", function () {
+        const userConfirmation = confirm("정말 탈퇴하시겠습니까?");
+        if (userConfirmation) {
+            // "예"를 선택한 경우 탈퇴 URL로 이동
+            window.location.href = "<c:url value='/member/delete' />";
+        }
+    });
+</script>
+</html>

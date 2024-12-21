@@ -66,7 +66,7 @@
                 <div class="mt-6 text-center">
                     <p class="text-sm text-gray-600">
                         아직 회원이 아니신가요?
-                        <a href="<c:url value='/member/' />" class="font-medium text-custom hover:text-custom/90">회원가입</a>
+                        <a href="<c:url value='/member/register/form' />" class="font-medium text-custom hover:text-custom/90">회원가입</a>
                     </p>
                 </div>
             </div>
