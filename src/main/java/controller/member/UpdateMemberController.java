@@ -10,11 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import controller.Controller;
-import controller.user.UpdateUserController;
 import model.domain.Member;
 
 public class UpdateMemberController implements Controller {
-    private static final Logger log = LoggerFactory.getLogger(UpdateUserController.class);
+    private static final Logger log = LoggerFactory.getLogger(UpdateMemberController.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

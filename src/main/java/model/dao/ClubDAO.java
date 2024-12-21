@@ -292,10 +292,10 @@ public class ClubDAO {
 
     public List<Member> getMembersByClubId(int clubId, int offset, int limit, String memberType, String searchKeyword) throws SQLException {
         StringBuilder sql = new StringBuilder(
-                "SELECT m.*, cm.isLeader, cm.joinedAt, cm.lastActivityAt " +
-                        "FROM ClubMember cm " +
-                        "JOIN Member m ON cm.memberId = m.memberId " +
-                        "WHERE cm.clubId = ?"
+            "SELECT m.*, cm.isLeader, cm.joinedAt, cm.lastActivityAt " +
+                    "FROM ClubMember cm " +
+                    "JOIN Member m ON cm.memberId = m.memberId " +
+                    "WHERE cm.clubId = ?"
         );
         List<Object> params = new ArrayList<>();
         params.add(clubId);

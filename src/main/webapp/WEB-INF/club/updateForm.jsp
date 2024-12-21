@@ -15,20 +15,20 @@
             data-border-radius="small"></script>
 </head>
 <body class="bg-gray-50 font-[&#39;Noto_Sans_KR&#39;]">
+<jsp:include page="../header.jsp"/>
 <div class="min-h-screen flex flex-col">
     <main class="flex-grow">
         <div class="max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
             <div class="mb-8">
                 <h1 class="text-2xl font-bold text-gray-900">모임 수정</h1>
             </div>
-
-            <!-- 경로 설정 실패: 수정 필요 -->
-            <form action="<c:url value=''/>" method="post" enctype="multipart/form-data" class="space-y-8">
+            <form action="<c:url value='/club/update'/>" method="post" enctype="multipart/form-data" class="space-y-8">
                 <input type="hidden" name="clubId" value="${club.clubId}"/>
                 <div class="space-y-6">
                     <div>
                         <label class="block text-sm font-medium text-gray-700">모임 이름</label>
-                        <input type="text" name="clubName" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm bg-gray-100"
+                        <input type="text" name="clubName"
+                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm bg-gray-100"
                                value="${club.clubName}" disabled=""/>
                     </div>
 
@@ -41,7 +41,8 @@
                                     <label for="file-upload"
                                            class="relative cursor-pointer bg-white rounded-md font-medium text-custom hover:text-custom-600">
                                         <span>이미지 업로드</span>
-                                        <input id="file-upload" name="thumbnail" type="file" class="sr-only" accept="image/*"/>
+                                        <input id="file-upload" name="thumbnail" type="file" class="sr-only"
+                                               accept="image/*"/>
                                     </label>
                                 </div>
                                 <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
@@ -52,7 +53,8 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700">모임 설명</label>
                         <div class="mt-1">
-                            <textarea name="description" rows="4" class="block w-full border-gray-300 rounded-md shadow-sm"
+                            <textarea name="description" rows="4"
+                                      class="block w-full border-gray-300 rounded-md shadow-sm"
                                       placeholder="모임에 대한 설명을 입력해주세요.">${club.description}</textarea>
                         </div>
                     </div>
@@ -80,8 +82,8 @@
 
                 <div class="flex justify-end space-x-3 mt-8 pt-8 border-t border-gray-200">
                     <div class="flex-1">
-                        <!-- 경로 설정 실패: 수정 필요 -->
-                        <button type="button" onclick="if(confirm('정말 삭제하시겠습니까?')) location.href='<c:url value=''/>'"
+                        <button type="button" onclick="if(confirm('정말 삭제하시겠습니까?')) location.href='<c:url
+                                value='/club/delete?clubId=${club.clubId}'/>'"
                                 class="w-full !rounded-button px-4 py-2 border border-red-300 shadow-sm text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50">
                             모임 삭제하기
                         </button>
