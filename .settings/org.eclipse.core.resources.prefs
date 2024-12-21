@@ -1,4 +1,10 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
+encoding//src/main/webapp/WEB-INF/club/clubCalendar.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/member/myPage.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/notice/createForm.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/notice/noticeBoard.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/notice/noticeDetail.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/notice/updateForm.jsp=UTF-8
 encoding/<project>=UTF-8

@@ -20,7 +20,7 @@ public class MemberLoginController implements Controller {
 			
 			int memberId = manager.findIdByEmail(email);
 	
-			// 세션에 사용자 이이디 저장
+			// 세션에 사용자 아이디 저장
 			HttpSession session = request.getSession();
             session.setAttribute(MemberSessionUtils.MEMBER_SESSION_KEY, memberId);
             session.setAttribute("isLoggedIn", true); // 로그인 상태 저장
