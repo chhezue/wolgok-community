@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 package controller.member;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,3 +48,6 @@ public class LeaveClubController implements Controller {
         }
     }
 }
+=======
+ 
+>>>>>>> Stashed changes
