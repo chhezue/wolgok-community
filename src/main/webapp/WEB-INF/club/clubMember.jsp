@@ -16,10 +16,7 @@
             data-border-radius="small"></script>
 </head>
 <body class="bg-gray-50 font-['Noto_Sans_KR']">
-<<<<<<< Updated upstream
-=======
 <jsp:include page="../header.jsp"/>
->>>>>>> Stashed changes
 
 <main class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="bg-white rounded-lg shadow">
@@ -35,19 +32,17 @@
         <div class="px-6 py-4 border-b border-gray-200">
             <div class="flex flex-col sm:flex-row justify-between space-y-4 sm:space-y-0 sm:space-x-4">
                 <div class="flex space-x-4">
-                    <select name="memberType" class="rounded-md border-gray-300 text-base focus:ring-custom focus:border-custom">
+                    <select name="memberType"
+                            class="rounded-md border-gray-300 text-base focus:ring-custom focus:border-custom">
                         <option value="all" ${param.memberType == 'all' ? 'selected' : ''}>전체 멤버</option>
                         <option value="leader" ${param.memberType == 'leader' ? 'selected' : ''}>모임장</option>
                         <option value="member" ${param.memberType == 'member' ? 'selected' : ''}>일반 멤버</option>
                     </select>
                 </div>
                 <div class="relative">
-<<<<<<< Updated upstream
                     <input type="text" name="searchKeyword" value="${param.searchKeyword}"
-=======
-                    <input type="text" name="searchKeyword" value="${param.searchKeyword}" 
->>>>>>> Stashed changes
-                           placeholder="멤버 검색" class="w-full sm:w-80 rounded-md border-gray-300 pl-10 focus:ring-custom focus:border-custom"/>
+                           placeholder="멤버 검색"
+                           class="w-full sm:w-80 rounded-md border-gray-300 pl-10 focus:ring-custom focus:border-custom"/>
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <i class="fas fa-search text-gray-400"></i>
                     </div>
@@ -62,7 +57,8 @@
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">멤버</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">역할</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">가입일</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">최근 활동</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">최근 활동
+                    </th>
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -83,11 +79,7 @@
                         <td class="px-6 py-4 whitespace-nowrap">
                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
                                 ${member.memberId == club.leaderId ? 'bg-custom text-white' : 'bg-gray-100 text-gray-800'}">
-<<<<<<< Updated upstream
                                     ${member.memberId == club.leaderId ? '모임장' : '일반 멤버'}
-=======
-                                ${member.memberId == club.leaderId ? '모임장' : '일반 멤버'}
->>>>>>> Stashed changes
                             </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -99,12 +91,8 @@
                                     <fmt:formatDate value="${member.lastActivityAt}" pattern="yyyy.MM.dd"/>
                                 </span>
                                 <c:if test="${sessionScope.memberId == member.memberId}">
-<<<<<<< Updated upstream
-                                    <!-- 경로 설정 실패: 수정 필요 -->
-                                    <button onclick="if(confirm('정말 탈퇴하시겠습니까?')) location.href='<c:url value=''/>'"
-=======
-                                    <button onclick="if(confirm('정말 탈퇴하시겠습니까?')) location.href='<c:url value='/club/leave?clubId=${club.clubId}'/>'"
->>>>>>> Stashed changes
+                                    <button onclick="if(confirm('정말 탈퇴하시겠습니까?')) location.href='<c:url
+                                            value='/club/leave?clubId=${club.clubId}'/>'"
                                             class="ml-4 px-3 py-1 text-sm text-red-600 hover:text-red-800 font-medium rounded-md border border-red-600 hover:border-red-800">
                                         탈퇴하기
                                     </button>
