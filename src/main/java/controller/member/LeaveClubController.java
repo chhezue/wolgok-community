@@ -46,8 +46,4 @@ public class LeaveClubController implements Controller {
             return "/club/clubInfo.jsp";
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> parent of 65ff08f (.)
