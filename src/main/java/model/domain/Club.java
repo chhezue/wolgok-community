@@ -1,19 +1,21 @@
 package model.domain;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Club {
     private int clubId;
     private String clubName;
+    private String description;   // 모임 설명
+    private String thumbnail;      // 대표 이미지 url
+    private List<String> hashtags; // 해시태그 (최대 2개)
+    private int maxMembers;        // 최대 참여 인원
+    private LocalDate createdAt;   // 개설일
+    private String category;        // 실시간 인기, 신규모임 등 정보 저장
+    private List<Member> members;   // 일반 멤버 리스트
+    private Member leader;          // 모임장 정보
     private int memberCount;
-    private List<Member> memberList;
-    private List<String> hashtags;
-    private String description;
-    private int maxMembers;
-    private Member creator;
-    private String thumbnail;
 
-    // Getter and Setter methods
     public int getClubId() {
         return clubId;
     }
@@ -30,52 +32,12 @@ public class Club {
         this.clubName = clubName;
     }
 
-    public int getMemberCount() {
-        return memberCount;
-    }
-
-    public void setMemberCount(int memberCount) {
-        this.memberCount = memberCount;
-    }
-
-    public List<Member> getMemberList() {
-        return memberList;
-    }
-
-    public void setMemberList(List<Member> memberList) {
-        this.memberList = memberList;
-    }
-
-    public List<String> getHashtags() {
-        return hashtags;
-    }
-
-    public void setHashtags(List<String> hashtags) {
-        this.hashtags = hashtags;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getMaxMembers() {
-        return maxMembers;
-    }
-
-    public void setMaxMembers(int maxMembers) {
-        this.maxMembers = maxMembers;
-    }
-
-    public Member getCreator() {
-        return creator;
-    }
-
-    public void setCreator(Member creator) {
-        this.creator = creator;
     }
 
     public String getThumbnail() {
@@ -86,7 +48,59 @@ public class Club {
         this.thumbnail = thumbnail;
     }
 
-    public void displayClub() {
-        // Implement display logic here
+    public List<String> getHashtags() {
+        return hashtags;
+    }
+
+    public void setHashtags(List<String> hashtags) {
+        this.hashtags = hashtags;
+    }
+
+    public int getMaxMembers() {
+        return maxMembers;
+    }
+
+    public void setMaxMembers(int maxMembers) {
+        this.maxMembers = maxMembers;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public List<Member> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<Member> members) {
+        this.members = members;
+    }
+
+    public Member getLeader() {
+        return leader;
+    }
+
+    public void setLeader(Member leader) {
+        this.leader = leader;
+    }
+
+    public int getMemberCount() {
+        return memberCount;
+    }
+
+    public void setMemberCount(int memberCount) {
+        this.memberCount = memberCount;
     }
 }
