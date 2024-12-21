@@ -15,10 +15,6 @@
             data-border-radius="small"></script>
 </head>
 <body class="bg-gray-50 font-[&#39;Noto_Sans_KR&#39;]">
-<<<<<<< Updated upstream
-=======
-<jsp:include page="../header.jsp"/>
->>>>>>> Stashed changes
 <div class="min-h-screen flex flex-col">
     <main class="flex-grow">
         <div class="max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
@@ -26,12 +22,8 @@
                 <h1 class="text-2xl font-bold text-gray-900">모임 수정</h1>
             </div>
 
-<<<<<<< Updated upstream
             <!-- 경로 설정 실패: 수정 필요 -->
             <form action="<c:url value=''/>" method="post" enctype="multipart/form-data" class="space-y-8">
-=======
-            <form action="<c:url value='/club/update'/>" method="post" enctype="multipart/form-data" class="space-y-8">
->>>>>>> Stashed changes
                 <input type="hidden" name="clubId" value="${club.clubId}"/>
                 <div class="space-y-6">
                     <div>
@@ -88,12 +80,8 @@
 
                 <div class="flex justify-end space-x-3 mt-8 pt-8 border-t border-gray-200">
                     <div class="flex-1">
-<<<<<<< Updated upstream
                         <!-- 경로 설정 실패: 수정 필요 -->
                         <button type="button" onclick="if(confirm('정말 삭제하시겠습니까?')) location.href='<c:url value=''/>'"
-=======
-                        <button type="button" onclick="if(confirm('정말 삭제하시겠습니까?')) location.href='<c:url value='/club/delete?clubId=${club.clubId}'/>'"
->>>>>>> Stashed changes
                                 class="w-full !rounded-button px-4 py-2 border border-red-300 shadow-sm text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50">
                             모임 삭제하기
                         </button>

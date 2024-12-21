@@ -16,10 +16,6 @@
             data-border-radius="small"></script>
 </head>
 <body class="bg-gray-50 font-['Noto_Sans_KR']">
-<<<<<<< Updated upstream
-=======
-<jsp:include page="../header.jsp"/>
->>>>>>> Stashed changes
 
 <main class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="bg-white rounded-lg shadow">
@@ -42,11 +38,7 @@
                     </select>
                 </div>
                 <div class="relative">
-<<<<<<< Updated upstream
                     <input type="text" name="searchKeyword" value="${param.searchKeyword}"
-=======
-                    <input type="text" name="searchKeyword" value="${param.searchKeyword}" 
->>>>>>> Stashed changes
                            placeholder="멤버 검색" class="w-full sm:w-80 rounded-md border-gray-300 pl-10 focus:ring-custom focus:border-custom"/>
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <i class="fas fa-search text-gray-400"></i>
@@ -83,11 +75,7 @@
                         <td class="px-6 py-4 whitespace-nowrap">
                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
                                 ${member.memberId == club.leaderId ? 'bg-custom text-white' : 'bg-gray-100 text-gray-800'}">
-<<<<<<< Updated upstream
                                     ${member.memberId == club.leaderId ? '모임장' : '일반 멤버'}
-=======
-                                ${member.memberId == club.leaderId ? '모임장' : '일반 멤버'}
->>>>>>> Stashed changes
                             </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -99,12 +87,8 @@
                                     <fmt:formatDate value="${member.lastActivityAt}" pattern="yyyy.MM.dd"/>
                                 </span>
                                 <c:if test="${sessionScope.memberId == member.memberId}">
-<<<<<<< Updated upstream
                                     <!-- 경로 설정 실패: 수정 필요 -->
                                     <button onclick="if(confirm('정말 탈퇴하시겠습니까?')) location.href='<c:url value=''/>'"
-=======
-                                    <button onclick="if(confirm('정말 탈퇴하시겠습니까?')) location.href='<c:url value='/club/leave?clubId=${club.clubId}'/>'"
->>>>>>> Stashed changes
                                             class="ml-4 px-3 py-1 text-sm text-red-600 hover:text-red-800 font-medium rounded-md border border-red-600 hover:border-red-800">
                                         탈퇴하기
                                     </button>

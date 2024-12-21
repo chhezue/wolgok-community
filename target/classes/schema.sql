@@ -50,3 +50,19 @@ CREATE TABLE Meeting
     FOREIGN KEY (clubId) REFERENCES Club (clubId) ON DELETE CASCADE
 );
 CREATE SEQUENCE MeetingId_Seq START WITH 1 INCREMENT BY 1;
+
+-- Notice 테이블 생성
+CREATE TABLE Notice
+(
+    noticeId            INTEGER NOT NULL, -- 공지사항 ID
+    clubId              INTEGER NOT NULL, -- 공지사항이 속한 Club ID
+    category            VARCHAR(50) NULL, -- 카테고리(중요, 정모, 정산, 투표)
+    title               VARCHAR(100) NOT NULL, -- 제목
+    content             VARCHAR(255) NULL, -- 내용
+    createdAt           TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 생성 일시
+    views               INTEGER DEFAULT 0, -- 조회수
+    attachments         VARCHAR(255) NULL, -- 첨부파일
+    PRIMARY KEY (noticeId),
+    FOREIGN KEY (clubId) REFERENCES Club (clubId) ON DELETE CASCADE
+);
+CREATE SEQUENCE NoticeId_Seq START WITH 1 INCREMENT BY 1;
